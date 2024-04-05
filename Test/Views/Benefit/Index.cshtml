@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "_LayoutCustomer";
+    ViewBag.Title = "Trang chủ";
+}
+
+<div>
+    @await Component.InvokeAsync("Earnings")
+
+<div class = "bg-light rounded mt-4"style="height: 100vh;">
+    <!-- Sales Chart Start -->
+    <div>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-sm-6">
+                    <div class="bg-light rounded h-100 p-4 w-100">
+                        <h6 class="mb-4">Doughnut Chart</h6>
+                        <canvas id="doughnut-chart"
+                            data-labels='["Italy", "France", "Spain", "USA", "Argentina"]'
+                            data-values="[55, 49, 44, 24, 15]">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Sales Chart End -->
+</div>
+
+<!-- Nội dung của trang Index kết thúc -->

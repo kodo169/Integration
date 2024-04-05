@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Integration.ViewModels.Earnings_ViewModel>
+@{
+    var totalVacationDays = 0;
+    @foreach (var item in Model)
+    {
+        //totalVacationDays += item.VacationDays ?? 0;
+    }
+}
+<!-- Sale & Revenue Stard -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="bi bi-calendar bi-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Sale</p>
+                    <h6 class="mb-0">@totalVacationDays</h6>
+                </div>
+            </div>
+        </div>
+<div class="col-sm-6">
+    <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+        <div class="d-flex align-items-center">
+            <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .7);"></div>
+            <span class="ms-2">Total income as of the time period last year</span>
+        </div>
+    </div>
+    <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+        <div class="d-flex align-items-center">
+            <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .5);"></div>
+            <span class="ms-2">Total income so far this year</span>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<!-- Sale & Revenue End -->

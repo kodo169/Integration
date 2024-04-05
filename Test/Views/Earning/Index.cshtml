@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "_LayoutCustomer";
+    ViewBag.Title = "Trang chủ";
+}
+<div>
+            @await Component.InvokeAsync("Earnings")
+
+
+            <!-- Sales Chart Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Multiple Bar Chart</h6>
+
+                    <div class="nav-item dropdown" >
+                        <a href="#" class="nav-link dropdown-toggle" style = "color: black;" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Gender</a>
+                        <div class="dropdown-menu border-0" style = "background-color: #f3f6f9;">
+                             <a class="dropdown-item" href="#" >Male</a>
+                             <a class="dropdown-item" href="#" >Female</a>
+                        </div>
+                    </div>
+                            <canvas id="worldwide-sales"
+                                     data-y1="[80, 30, 55, 65, 60, 80, 95]"
+                                     data-y2="[8, 35, 40, 60, 70, 55, 75]"
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sales Chart End -->
+</div>
+<!-- Nội dung của trang Index kết thúc -->
+<script>
+    var selectedValues = ['Kodo','Giang'];
+    document.querySelectorAll('.dropdown-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectedValues.push(this.textContent);
+        console.log(selectedValues);
+    });
+});
+</script>
