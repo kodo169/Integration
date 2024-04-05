@@ -38,6 +38,7 @@ namespace Integration.Viewcomponents
                             MiddleInitial =hr.MiddleInitial,
                             LastName = hr.LastName,
                             payRateName = prPE.PayRateName,
+                            Gender = hr.Gender,
                             value = prPE.Value,
                             tax = prPE.TaxPercentage,
                             payAmount = prPE.PayAmount,

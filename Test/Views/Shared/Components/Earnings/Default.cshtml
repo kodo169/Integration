@@ -5,8 +5,39 @@
     {
         var totalPay = 0;
         totalPay = (Convert.ToInt32(item.value) - Convert.ToInt32(item.tax) + Convert.ToInt32(item.payAmount));
-        totalEarnings += (totalPay * Convert.ToInt32(item.PaidLastYear) * 12) + (totalPay * Convert.ToInt32(item.PaidToDate));
+        totalEarnings += (totalPay * Convert.ToInt32(item.PaidToDate));
     }
+}
+@{
+    List<string> dataXList = new List<string> { "Male", "Female" };
+    List<int> dataY1List = new List<int>();
+    List<int> dataY2List = new List<int>();
+    var totalMale = 0;
+    var totalPayMaleLastYear = 0;
+    var totalFemale = 0;
+    var totalPayFemaleLastYear = 0;
+    foreach (var item in Model)
+    {
+        if (item.Gender == true)
+        {
+            var totalPay = 0;
+            totalPay = (Convert.ToInt32(item.value) - Convert.ToInt32(item.tax) + Convert.ToInt32(item.payAmount));
+            totalPayMaleLastYear += totalPay * Convert.ToInt32(item.PaidLastYear);
+            totalMale += (totalPay * Convert.ToInt32(item.PaidToDate)) ;
+        }
+        else if (item.Gender == false)
+        {
+            var totalPay = 0;
+            totalPay = (Convert.ToInt32(item.value) - Convert.ToInt32(item.tax) + Convert.ToInt32(item.payAmount));
+            totalPayFemaleLastYear += totalPay * Convert.ToInt32(item.PaidLastYear);
+            totalFemale += (totalPay * Convert.ToInt32(item.PaidToDate));
+        }
+    }
+    dataY1List.AddRange(new List<int> { totalPayMaleLastYear, totalPayFemaleLastYear });
+    dataY2List.AddRange(new List<int> { totalMale, totalFemale });
+    var dataX = dataXList.ToArray();
+    var dataY1 = dataY1List.ToArray();
+    var dataY2 = dataY2List.ToArray();
 }
 <!-- Sale & Revenue Stard -->
 <div class="container-fluid pt-4 px-4">
@@ -20,22 +51,67 @@
                 </div>
             </div>
         </div>
-<div class="col-sm-6">
-    <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
-        <div class="d-flex align-items-center">
-            <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .7);"></div>
-            <span class="ms-2">Total income as of the time period last year</span>
+        <div class="col-sm-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+                <div class="d-flex align-items-center">
+                    <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .7);"></div>
+                    <span class="ms-2">Total income as of the time period last year</span>
+                </div>
+            </div>
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+                <div class="d-flex align-items-center">
+                    <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .5);"></div>
+                    <span class="ms-2">Total income so far this year</span>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
-        <div class="d-flex align-items-center">
-            <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .5);"></div>
-            <span class="ms-2">Total income so far this year</span>
-        </div>
-    </div>
 </div>
+<div>
+     <!-- Sales Chart Start -->
+     <div class="container-fluid pt-4 px-4">
+         <div class="row">
+             <div class="col-sm-12">
+                 <div class="bg-light rounded h-100 p-4">
+                     <h6 class="mb-4">Multiple Bar Chart</h6>
 
+             <div class="d-flex"> 
+                 <div class="nav-item dropdown p-4">
+                     <a href="#" class="nav-link dropdown-toggle" style = "color: black;" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Gender</a>
+                     <div class="dropdown-menu border-0" style = "background-color: #f3f6f9;">
+                          <a class="dropdown-item" href="#" >Male</a>
+                          <a class="dropdown-item" href="#" >Female</a>
+                     </div>
+                 </div>
+                 <div class="nav-item dropdown p-4" >
+                     <a href="#" class="nav-link dropdown-toggle" style = "color: black;" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Ethnicity</a>
+                     <div class="dropdown-menu border-0" style = "background-color: #f3f6f9;">
+                          <a class="dropdown-item" href="#" ></a>
+                          <a class="dropdown-item" href="#" ></a>
+                     </div>
+                 </div>
+                </div>
 
+                <canvas id="worldwide-sales" 
+                        data-x='@string.Join(",", dataX)' 
+                        data-y1-values='@string.Join(",", dataY1)' 
+                        data-y2-values='@string.Join(",", dataY2)'>
+                </canvas>
+
+                 </div>
+             </div>
+         </div>
+     </div>
+     <!-- Sales Chart End -->
 </div>
 
 <!-- Sale & Revenue End -->
+<script>
+    var selectedValues = [];
+    document.querySelectorAll('.dropdown-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectedValues.push(this.textContent);
+        console.log(selectedValues);
+    });
+});
+</script>
