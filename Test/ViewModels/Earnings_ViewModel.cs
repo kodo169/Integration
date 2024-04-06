@@ -13,7 +13,7 @@
         public bool? Gender { get; set; }
         public decimal? payAmount { get; set; }
         public decimal? PaidToDate { get; set; }
-
+        public string? Ethnicity { get; set; }
         public decimal? PaidLastYear { get; set; }
 
         public virtual Integration.Models.PayRate PayRatesIdPayRatesNavigation { get; set; } = null!;

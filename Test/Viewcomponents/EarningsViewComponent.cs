@@ -44,6 +44,7 @@ namespace Integration.Viewcomponents
                             payAmount = prPE.PayAmount,
                             PaidToDate = prE.PaidToDate,
                             PaidLastYear = prE.PaidLastYear,
+                            Ethnicity = hr.Ethnicity,
                         });
                     }
                 }
