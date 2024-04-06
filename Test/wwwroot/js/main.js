@@ -68,9 +68,9 @@
             var y1Data = [];
             var y2Data = [];
             //Các biến mặc định 
-            var xBase = [" "];
-            var y1Base = [0];
-            var y2Base = [0];
+            var xBase = [];
+            var y1Base = [];
+            var y2Base = [];
             //các biến hiển thị
             var xShow = [" "];
             var y1Show = [0];
@@ -102,8 +102,26 @@
                 }
             });
 
+            /*document.getElementById('gender-dropdown').addEventListener('click', function () {
+                var dropdownMenu = this.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('show');
+                }
+            });
+
+            document.querySelectorAll('.dropdown-item').forEach(function (item) {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
+                    if (index >= 0) {
+                        // Thực hiện các hành động với index đã được chọn
+                        console.log("Index:", index);
+                    }
+                });
+            });*/
             document.querySelectorAll('.nav-item.dropdown').forEach(function (dropdown) {
                 dropdown.querySelectorAll('.dropdown-item').forEach(function (item) {
+                    console.log("Click")
                     item.addEventListener('click', function (e) {
                         e.preventDefault();
                         var index = -1;
@@ -116,14 +134,36 @@
                             xShow = xBase.concat(xData)
                             y1Show = y1Base.concat(y1Data)
                             y2Show = y2Base.concat(y2Data)
-                            console.log(xShow)
-                            console.log(y1Show)
+                            console.log(xBase)
+                            console.log(xData)
                             console.log(y2Show)
                         }
                     });
                 });
             });
 
+            /*
+            document.querySelectorAll('.dropdown-item').forEach(function (item) {
+                console.log("Click")
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var index = -1;
+                    index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
+                    if (index >= 0 && index < canvas.data("x").length) {
+                        xData.push(xValues[index])
+                        y1Data.push(y1Values[index])
+                        y2Data.push(y2Values[index])
+                        // làm hàm check 
+                        xShow = xBase.concat(xData)
+                        y1Show = y1Base.concat(y1Data)
+                        y2Show = y2Base.concat(y2Data)
+                        console.log(xBase)
+                        console.log(xData)
+                        console.log(y2Show)
+                    }
+                });
+            });
+            */
         } else {
             // Nếu phần tử không tồn tại, thực hiện các hành động cho biểu đồ doughnut chart
             var doughnutLabels = canvasDoughnut.data("labels");
