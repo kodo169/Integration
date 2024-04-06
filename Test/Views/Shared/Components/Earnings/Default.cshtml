@@ -9,7 +9,7 @@
     }
 }
 @{
-    List<string> dataXList = new List<string> { "Male", "Female" };
+    List<string> dataXList = new List<string> {"Stackholder","Male", "Female","Full-Time","Pass-Time" };
     List<int> dataY1List = new List<int>();
     List<int> dataY2List = new List<int>();
     var totalMale = 0;
@@ -33,8 +33,8 @@
             totalFemale += (totalPay * Convert.ToInt32(item.PaidToDate));
         }
     }
-    dataY1List.AddRange(new List<int> { totalPayMaleLastYear, totalPayFemaleLastYear });
-    dataY2List.AddRange(new List<int> { totalMale, totalFemale });
+    dataY1List.AddRange(new List<int> { 300000,totalPayMaleLastYear, totalPayFemaleLastYear,160000,600000 });
+    dataY2List.AddRange(new List<int> { 300000,totalMale, totalFemale,700000,1000000 });
     var dataX = dataXList.ToArray();
     var dataY1 = dataY1List.ToArray();
     var dataY2 = dataY2List.ToArray();
@@ -78,15 +78,15 @@
                  <div class="nav-item dropdown p-4">
                      <a href="#" class="nav-link dropdown-toggle" style = "color: black;" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Gender</a>
                      <div class="dropdown-menu border-0" style = "background-color: #f3f6f9;">
-                          <a class="dropdown-item" href="#" >Male</a>
-                          <a class="dropdown-item" href="#" >Female</a>
+                          <a class="dropdown-item" href="#" data-index= "1" >Male</a>
+                          <a class="dropdown-item" href="#" data-index= "2" >Female</a>
                      </div>
                  </div>
                  <div class="nav-item dropdown p-4" >
                      <a href="#" class="nav-link dropdown-toggle" style = "color: black;" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Ethnicity</a>
                      <div class="dropdown-menu border-0" style = "background-color: #f3f6f9;">
-                          <a class="dropdown-item" href="#" ></a>
-                          <a class="dropdown-item" href="#" ></a>
+                          <a class="dropdown-item" href="#" >Vũ Huỳnh</a>
+                          <a class="dropdown-item" href="#" >Kodokuna</a>
                      </div>
                  </div>
                 </div>
@@ -105,13 +105,3 @@
 </div>
 
 <!-- Sale & Revenue End -->
-<script>
-    var selectedValues = [];
-    document.querySelectorAll('.dropdown-item').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-        selectedValues.push(this.textContent);
-        console.log(selectedValues);
-    });
-});
-</script>

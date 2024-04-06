@@ -1,6 +1,6 @@
 ﻿(function ($) {
     "use strict";
-   
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
@@ -10,8 +10,7 @@
         }, 1);
     };
     spinner();
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -21,10 +20,9 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
-
 
     // Sidebar Toggler
     $('.sidebar-toggler').click(function () {
@@ -32,21 +30,18 @@
         return false;
     });
 
-
     // Progress Bar
     $('.pg-bar').waypoint(function () {
         $('.progress .progress-bar').each(function () {
             $(this).css("width", $(this).attr("aria-valuenow") + '%');
         });
-    }, {offset: '80%'});
+    }, { offset: '80%' });
 
-
-    // Calender
-    $('#calender').datetimepicker({
+    // Calendar
+    $('#calendar').datetimepicker({
         inline: true,
         format: 'L'
     });
-
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
@@ -55,33 +50,44 @@
         items: 1,
         dots: true,
         loop: true,
-        nav : false
+        nav: false
     });
-
     // Truy xuất canvas và các giá trị từ HTML
     // Lấy phần tử canvas từ HTML
     $(document).ready(function () {
         var canvas = $("#worldwide-sales");
-
+        var canvasDoughnut = $("#doughnut-chart");
         // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
         if (canvas.length) {
             // Nếu phần tử tồn tại, thực hiện các hành động cho biểu đồ bar chart
-            var xValues = canvas.data("x").split(","); // Chia chuỗi thành mảng
-            var y1Values = canvas.data("y1-values").split(","); // Chia chuỗi thành mảng
-            var y2Values = canvas.data("y2-values").split(","); // Chia chuỗi thành mảng
-            var titles = ["Total Last Year","Total to Present"];
-            var titleIndex = 0; 
+            var xValues = canvas.data("x").split(",");
+            var y1Values = canvas.data("y1-values").split(","); 
+            var y2Values = canvas.data("y2-values").split(","); 
+            //Các biến dùng cho click
+            var xData = [];
+            var y1Data = [];
+            var y2Data = [];
+            //Các biến mặc định 
+            var xBase = [" "];
+            var y1Base = [0];
+            var y2Base = [0];
+            //các biến hiển thị
+            var xShow = [" "];
+            var y1Show = [0];
+            var y2Show = [0];
+            var titles = ["Total Last Year", "Total to Present"];
+            var titleIndex = 0;
             // Tạo đối tượng dữ liệu cho biểu đồ bar chart
             var chartData = {
-                labels: xValues,
+                labels: xShow,
                 datasets: [{
                     label: titles[titleIndex],
-                    data: y1Values,
+                    data: y1Show,
                     backgroundColor: "rgba(0, 156, 255, .7)"
                 },
                 {
                     label: titles[titleIndex + 1],
-                    data: y2Values,
+                    data: y2Show,
                     backgroundColor: "rgba(0, 156, 255, .5)"
                 }]
             };
@@ -95,9 +101,31 @@
                     responsive: true
                 }
             });
+
+            document.querySelectorAll('.nav-item.dropdown').forEach(function (dropdown) {
+                dropdown.querySelectorAll('.dropdown-item').forEach(function (item) {
+                    item.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var index = -1;
+                        index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
+                        if (index >= 0 && index < canvas.data("x").length) {
+                            xData.push(xValues[index])
+                            y1Data.push(y1Values[index])
+                            y2Data.push(y2Values[index])
+                            // làm hàm check 
+                            xShow = xBase.concat(xData)
+                            y1Show = y1Base.concat(y1Data)
+                            y2Show = y2Base.concat(y2Data)
+                            console.log(xShow)
+                            console.log(y1Show)
+                            console.log(y2Show)
+                        }
+                    });
+                });
+            });
+
         } else {
             // Nếu phần tử không tồn tại, thực hiện các hành động cho biểu đồ doughnut chart
-            var canvasDoughnut = $("#doughnut-chart");
             var doughnutLabels = canvasDoughnut.data("labels");
             var doughnutValues = canvasDoughnut.data("values");
 
@@ -127,8 +155,4 @@
             });
         }
     });
-
-
-    
 })(jQuery);
-
