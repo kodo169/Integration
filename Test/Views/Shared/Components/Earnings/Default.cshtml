@@ -43,9 +43,9 @@
     }
     dataY1List.AddRange(new List<int> { 300000,totalPayMaleLastYear, totalPayFemaleLastYear,160000,600000 ,700000,8000000,8500000});
     dataY2List.AddRange(new List<int> { 3000000,totalMale, totalFemale,700000,1000000,4511000,65871241,32621451 });
-    var FisrtdataX = dataXList.ToArray();
     var listEthnicitys = listEthnicity.ToArray();
-    var dataX = FisrtdataX.Concat(listEthnicitys);
+    //var dataX = FisrtdataX.Concat(listEthnicitys);
+    var dataX = dataXList.ToArray();
     var dataY1 = dataY1List.ToArray();
     var dataY2 = dataY2List.ToArray();
 }
@@ -119,7 +119,8 @@
                         <canvas id="worldwide-sales" 
                             data-x='@string.Join(",", dataX)' 
                             data-y1-values='@string.Join(",", dataY1)' 
-                            data-y2-values='@string.Join(",", dataY2)'>
+                            data-y2-values='@string.Join(",", dataY2)'
+                            data-ethnicity ='@string.Join(",", listEthnicitys)'>
                         </canvas>
                     </div>
              </div>

@@ -52,11 +52,32 @@
         loop: true,
         nav: false
     });
-    var xValues;
-    var y1Values;
-    var y2Values;
-    var y1Show=[];
-    var y2Show = [];
+    /*function isXDataInXShow(xdata) {
+        return xShow.includes(xdata);
+    }*/
+    function getXDataIndexInXShow(xdata) {
+        var index = xShow.indexOf(xdata);
+        if (index !== -1) {
+            return { found: true, index: index };
+        } else {
+            return { found: false, index: -1 };
+        }
+    }
+    function addDataWithEthnicity(index_X, y1data, y2data, xdata) {
+        var deleteIndex = getXDataIndexInXShow(xdata).index;
+        if (getXDataIndexInXShow(xdata).found == true) {
+            xShow.splice(deleteIndex, 1);
+            y1Show.splice(deleteIndex, 1);
+            y2Show.splice(deleteIndex, 1);
+            return;
+        }
+        else {
+            xShow[index_X] = xdata;
+            y1Show[index_X] = y1data;
+            y2Show[index_X] = y2data;
+            return;
+        }
+    }
     function addData(index, y1data, y2data) {
         if (y1Show[index] > 0 && y2Show[index] > 0) {
             y1Show[index] = 0;
@@ -70,14 +91,18 @@
     }
     document.querySelectorAll('.nav-item.dropdown, .nav-item.p-4').forEach(function (navItem) {
         navItem.querySelectorAll('.dropdown-item, button').forEach(function (item) {
-            console.log("Click")
             item.addEventListener('click', function (e) {
                 e.preventDefault();
                 var index = -1;
                 index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
-                if (index >= 0) {
-                    addData(index, y1Values[index], y2Values[index]);
-                    drawChart(); // Gọi lại hàm vẽ biểu đồ sau khi click
+                if (index >= 5) {
+                    addDataWithEthnicity(xShow.length,sumdataY1[index], sumdataY2[index], sumdataX[index]);
+                    drawChart();
+                    return;
+                }
+                else {
+                    addData(index, sumdataY1[index], sumdataY2[index]);
+                    drawChart();
                 }
             });
         });
@@ -85,28 +110,57 @@
     $(document).ready(function () {
         drawChart();
     });
+    // start biến earning
+    var xValues;
+    var y1Values;
+    var y2Values;
+    var xShow = [];
+    var y1Show = [];
+    var y2Show = [];
+    var xEthnicityValues;
+    var sumdataX = [];
+    var sumdataY1 = [];
+    var sumdataY2 = [];
+    // end biến earning
+    var checkdata = false;
+    var checkdataXshow = false;
     function drawChart() {
         var canvas = $("#worldwide-sales");
         var canvasDoughnut = $("#doughnut-chart");
         if (window.myChart1) {
             window.myChart1.destroy(); // Xóa biểu đồ cũ đi
-            console.log("Đã chạy tới đây")
         }
         // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
         if (canvas.length) {
-            // Nếu phần tử tồn tại, thực hiện các hành động cho biểu đồ bar chart
+            // dữ liệu cho earnings
+
             xValues = canvas.data("x").split(",");
+            var xShow_intermediate = canvas.data("x").split(",");
             y1Values = canvas.data("y1-values").split(",");
             y2Values = canvas.data("y2-values").split(",");
-            for (var i = 0; i < xValues.length; i++) {
-                y1Show.push(0);
-                y2Show.push(0);
+            xEthnicityValues = canvas.data("ethnicity").split(",");
+
+            sumdataX = xValues.concat(xEthnicityValues);
+            sumdataY1 = [].concat(y1Values);
+            sumdataY2 = [].concat(y2Values);
+
+            if (checkdataXshow == false) {
+                xShow = xShow.concat(xShow_intermediate);
+                checkdataXshow = true;
             }
+            if (checkdata == false) {
+                for (var i = 0; i < sumdataX.length; i++) {
+                    y1Show.push(0);
+                    y2Show.push(0);
+                }
+                checkdata = true;
+            }
+
             var titles = ["Total Last Year", "Total to Present"];
             var titleIndex = 0;
             // Tạo đối tượng dữ liệu cho biểu đồ bar chart
             var chartData = {
-                labels: xValues,
+                labels: xShow,
                 datasets: [{
                     label: titles[titleIndex],
                     data: y1Show,
