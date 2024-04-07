@@ -159,4 +159,8 @@
     <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\NewFolder\" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,5 @@
-﻿<div>
-    @await Component.InvokeAsync("HiringAnniversarys")
-</div>
+﻿@{
+    Layout = "_LayoutCustomer";
+    ViewBag.Title = "Trang chủ";
+}
+   @await Component.InvokeAsync("HiringAnniversarys")
