@@ -55,28 +55,39 @@
     var xValues;
     var y1Values;
     var y2Values;
-    //các biến hiển thị
-    var xShow = [];
-    var y1Show = [];
+    var y1Show=[];
     var y2Show = [];
-    // Hàm vẽ biểu đồ
-    function addData(index,y1data,y2data) {
-        for (var i = 0; i < xValues.length; i++) {
-            if (y1Show[i] > 0 && y2Show[i] > 0) {
-                y1Show[i] = 0;
-                y2Show[i] = 0;
-                break;
-            }
-            if (i == index) {
-                y1Show[i] = y1data;
-                y2Show[i] = y2data;
-            }
+    function addData(index, y1data, y2data) {
+        if (y1Show[index] > 0 && y2Show[index] > 0) {
+            y1Show[index] = 0;
+            y2Show[index] = 0;
+            return;
+        }
+        else {
+            y1Show[index] = y1data;
+            y2Show[index] = y2data;
         }
     }
+    document.querySelectorAll('.nav-item.dropdown, .nav-item.p-4').forEach(function (navItem) {
+        navItem.querySelectorAll('.dropdown-item, button').forEach(function (item) {
+            console.log("Click")
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                var index = -1;
+                index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
+                if (index >= 0) {
+                    addData(index, y1Values[index], y2Values[index]);
+                    drawChart(); // Gọi lại hàm vẽ biểu đồ sau khi click
+                }
+            });
+        });
+    });
+    $(document).ready(function () {
+        drawChart();
+    });
     function drawChart() {
         var canvas = $("#worldwide-sales");
         var canvasDoughnut = $("#doughnut-chart");
-        // Kiểm tra nếu đã có biểu đồ được vẽ trên canvas trước đó
         if (window.myChart1) {
             window.myChart1.destroy(); // Xóa biểu đồ cũ đi
             console.log("Đã chạy tới đây")
@@ -85,13 +96,12 @@
         if (canvas.length) {
             // Nếu phần tử tồn tại, thực hiện các hành động cho biểu đồ bar chart
             xValues = canvas.data("x").split(",");
-            console.log(xValues[0]);
+            y1Values = canvas.data("y1-values").split(",");
+            y2Values = canvas.data("y2-values").split(",");
             for (var i = 0; i < xValues.length; i++) {
                 y1Show.push(0);
                 y2Show.push(0);
             }
-            y1Values = canvas.data("y1-values").split(",");
-            y2Values = canvas.data("y2-values").split(",");
             var titles = ["Total Last Year", "Total to Present"];
             var titleIndex = 0;
             // Tạo đối tượng dữ liệu cho biểu đồ bar chart
@@ -149,26 +159,5 @@
             });
         }
     }
-
-    // Gọi hàm vẽ biểu đồ khi trang được load
-    $(document).ready(function () {
-        drawChart();
-    });
-
-    // Gọi hàm vẽ biểu đồ khi click vào một item
-    document.querySelectorAll('.nav-item.dropdown, .nav-item.p-4').forEach(function (navItem) {
-        navItem.querySelectorAll('.dropdown-item, button').forEach(function (item) {
-            console.log("Click")
-            item.addEventListener('click', function (e) {
-                e.preventDefault();
-                var index = -1;
-                index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
-                if (index >= 0) {
-                    addData(index, y1Values[index], y2Values[index])
-                    drawChart(); // Gọi lại hàm vẽ biểu đồ sau khi click
-                }
-            });
-        });
-    });
 })(jQuery);
 
