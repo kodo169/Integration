@@ -55,7 +55,7 @@
     /*function isXDataInXShow(xdata) {
         return xShow.includes(xdata);
     }*/
-    /*function getXDataIndexInXShow(xdata) {
+    function getXDataIndexInXShow(xdata) {
         var index = xShow.indexOf(xdata);
         if (index !== -1) {
             return { found: true, index: index };
@@ -96,7 +96,7 @@
                 var index = -1;
                 index = parseInt(this.getAttribute('data-index')); // Lấy index từ thuộc tính data-index
                 if (index >= 5) {
-                    addDataWithEthnicity(xShow.length,sumdataY1[index], sumdataY2[index], sumdataX[index]);
+                    addDataWithEthnicity(xShow.length, sumdataY1[index], sumdataY2[index], sumdataX[index]);
                     drawChart();
                     return;
                 }
@@ -126,7 +126,6 @@
     var checkdataXshow = false;
     function drawChart() {
         var canvas = $("#worldwide-sales");
-        var canvasDoughnut = $("#doughnut-chart");
         if (window.myChart1) {
             window.myChart1.destroy(); // Xóa biểu đồ cũ đi
         }
@@ -212,6 +211,6 @@
                 }
             });
         }
-    }*/
+    }
 })(jQuery);
 
