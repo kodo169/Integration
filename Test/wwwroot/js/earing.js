@@ -29,32 +29,9 @@
         $('.sidebar, .content').toggleClass("open");
         return false;
     });
-
-    // Progress Bar
-    $('.pg-bar').waypoint(function () {
-        $('.progress .progress-bar').each(function () {
-            $(this).css("width", $(this).attr("aria-valuenow") + '%');
-        });
-    }, { offset: '80%' });
-
-    // Calendar
-    $('#calendar').datetimepicker({
-        inline: true,
-        format: 'L'
-    });
-
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1000,
-        items: 1,
-        dots: true,
-        loop: true,
-        nav: false
-    });
-    /*function isXDataInXShow(xdata) {
+    function isXDataInXShow(xdata) {
         return xShow.includes(xdata);
-    }*/
+    }
     function getXDataIndexInXShow(xdata) {
         var index = xShow.indexOf(xdata);
         if (index !== -1) {
@@ -130,7 +107,6 @@
             window.myChart1.destroy(); // Xóa biểu đồ cũ đi
         }
         // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
-        if (canvas.length) {
             // dữ liệu cho earnings
 
             xValues = canvas.data("x").split(",");
@@ -181,36 +157,7 @@
                     responsive: true
                 }
             });
-        } else {
-            // Nếu phần tử không tồn tại, thực hiện các hành động cho biểu đồ doughnut chart
-            var doughnutLabels = canvasDoughnut.data("labels");
-            var doughnutValues = canvasDoughnut.data("values");
-
-            // Tạo đối tượng dữ liệu cho biểu đồ
-            var doughnutData = {
-                labels: doughnutLabels,
-                datasets: [{
-                    backgroundColor: [
-                        "rgba(0, 156, 255, .7)",
-                        "rgba(0, 156, 255, .6)",
-                        "rgba(0, 156, 255, .5)",
-                        "rgba(0, 156, 255, .4)",
-                        "rgba(0, 156, 255, .3)"
-                    ],
-                    data: doughnutValues
-                }]
-            };
-
-            // Tạo biểu đồ doughnut
-            var ctxDoughnut = canvasDoughnut.get(0).getContext("2d");
-            var myDoughnutChart = new Chart(ctxDoughnut, {
-                type: "doughnut",
-                data: doughnutData,
-                options: {
-                    responsive: true
-                }
-            });
-        }
     }
+    console.log("???")
 })(jQuery);
 

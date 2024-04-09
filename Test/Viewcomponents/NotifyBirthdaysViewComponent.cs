@@ -5,11 +5,11 @@ using Test.Data;
 
 namespace Integration.Viewcomponents
 {
-    public class NotifyVacationsViewCompoment : ViewComponent
+    public class NotifyBirthdaysViewComponent : ViewComponent
     {
         private readonly HrContext _dataSQLServer;
         private readonly MydbContext _dataMySQLServer;
-        public NotifyVacationsViewCompoment(HrContext dataSQLServer, MydbContext dataMySQLServer)
+        public NotifyBirthdaysViewComponent(HrContext dataSQLServer, MydbContext dataMySQLServer)
         {
             _dataSQLServer = dataSQLServer;
             _dataMySQLServer = dataMySQLServer;
@@ -19,7 +19,7 @@ namespace Integration.Viewcomponents
             var dataHRPersonal = _dataSQLServer.Personals.ToList();
             var dataHREmployment = _dataSQLServer.Employments.ToList();
             var dataPayroll = _dataMySQLServer.Employees.ToList();
-            var data = new List<NotifyVacations_ViewModel>();
+            var data = new List<NotifyBirthdays_ViewModel>();
 
             if (dataHRPersonal.Count == dataPayroll.Count)
             {
@@ -31,7 +31,7 @@ namespace Integration.Viewcomponents
                     var hrE = dataHREmployment.FirstOrDefault(e => e.EmployeeId == hrP.EmployeeId);
                     if (prE != null && hrE != null)
                     {
-                        data.Add(new NotifyVacations_ViewModel
+                        data.Add(new NotifyBirthdays_ViewModel
                         {
                             //gán giá trị cho các đối tượng
                         });
