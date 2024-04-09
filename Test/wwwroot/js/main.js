@@ -52,10 +52,10 @@
         loop: true,
         nav: false
     });
-    /*function isXDataInXShow(xdata) {
+    function isXDataInXShow(xdata) {
         return xShow.includes(xdata);
-    }*/
-    /*function getXDataIndexInXShow(xdata) {
+    }
+    function getXDataIndexInXShow(xdata) {
         var index = xShow.indexOf(xdata);
         if (index !== -1) {
             return { found: true, index: index };
@@ -107,7 +107,7 @@
             });
         });
     });
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         drawChart();
     });
     // start biến earning

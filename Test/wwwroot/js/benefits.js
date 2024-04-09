@@ -15,7 +15,6 @@
                         "rgba(0, 156, 255, .4)",
                         "rgba(0, 156, 255, .3)"
                     ],
-                    //????
                     data: doughnutValues
                 }]
             };
@@ -29,7 +28,4 @@
                 }
             });
         }
-
-    // Additional functions for the doughnut chart can be added here if needed
-
 })(jQuery);
