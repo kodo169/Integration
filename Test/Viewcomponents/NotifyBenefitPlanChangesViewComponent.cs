@@ -5,11 +5,11 @@ using Test.Data;
 
 namespace Integration.Viewcomponents
 {
-    public class NotifyBenefitPlanChangeViewCompoment : ViewComponent
+    public class NotifyBenefitPlanChangesViewComponent : ViewComponent
     {
         private readonly HrContext _dataSQLServer;
         private readonly MydbContext _dataMySQLServer;
-        public NotifyBenefitPlanChangeViewCompoment(HrContext dataSQLServer, MydbContext dataMySQLServer)
+        public NotifyBenefitPlanChangesViewComponent(HrContext dataSQLServer, MydbContext dataMySQLServer)
         {
             _dataSQLServer = dataSQLServer;
             _dataMySQLServer = dataMySQLServer;
