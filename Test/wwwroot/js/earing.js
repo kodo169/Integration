@@ -141,6 +141,5 @@
                 }
             });
     }
-    console.log("phắc")
 })(jQuery);
 
