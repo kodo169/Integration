@@ -90,6 +90,7 @@
             window.myChart1.destroy(); // Xóa biểu đồ cũ đi
         }
         // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
+        // dữ liệu cho earnings
 
         xValues = canvas.data("x").split(",");
         var xShow_intermediate = canvas.data("x").split(",");

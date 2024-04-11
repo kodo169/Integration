@@ -90,55 +90,56 @@
             window.myChart1.destroy(); // Xóa biểu đồ cũ đi
         }
         // Kiểm tra xem phần tử canvas có tồn tại trong DOM không
+            // dữ liệu cho earnings
 
-        xValues = canvas.data("x").split(",");
-        var xShow_intermediate = canvas.data("x").split(",");
-        y1Values = canvas.data("y1-values").split(",");
-        y2Values = canvas.data("y2-values").split(",");
-        xEthnicityValues = canvas.data("ethnicity").split(",");
+            xValues = canvas.data("x").split(",");
+            var xShow_intermediate = canvas.data("x").split(",");
+            y1Values = canvas.data("y1-values").split(",");
+            y2Values = canvas.data("y2-values").split(",");
+            xEthnicityValues = canvas.data("ethnicity").split(",");
 
-        sumdataX = xValues.concat(xEthnicityValues);
-        sumdataY1 = [].concat(y1Values);
-        sumdataY2 = [].concat(y2Values);
+            sumdataX = xValues.concat(xEthnicityValues);
+            sumdataY1 = [].concat(y1Values);
+            sumdataY2 = [].concat(y2Values);
 
-        if (checkdataXshow == false) {
-            xShow = xShow.concat(xShow_intermediate);
-            checkdataXshow = true;
-        }
-        if (checkdata == false) {
-            for (var i = 0; i < sumdataX.length; i++) {
-                y1Show.push(0);
-                y2Show.push(0);
+            if (checkdataXshow == false) {
+                xShow = xShow.concat(xShow_intermediate);
+                checkdataXshow = true;
             }
-            checkdata = true;
-        }
-
-        var titles = ["Total Last Year", "Total to Present"];
-        var titleIndex = 0;
-        // Tạo đối tượng dữ liệu cho biểu đồ bar chart
-        var chartData = {
-            labels: xShow,
-            datasets: [{
-                label: titles[titleIndex],
-                data: y1Show,
-                backgroundColor: "rgba(0, 156, 255, .7)"
-            },
-            {
-                label: titles[titleIndex + 1],
-                data: y2Show,
-                backgroundColor: "rgba(0, 156, 255, .5)"
-            }]
-        };
-
-        // Tạo biểu đồ bar chart
-        var ctx1 = canvas.get(0).getContext("2d");
-        window.myChart1 = new Chart(ctx1, {
-            type: "bar",
-            data: chartData,
-            options: {
-                responsive: true
+            if (checkdata == false) {
+                for (var i = 0; i < sumdataX.length; i++) {
+                    y1Show.push(0);
+                    y2Show.push(0);
+                }
+                checkdata = true;
             }
-        });
+
+            var titles = ["Total Last Year", "Total to Present"];
+            var titleIndex = 0;
+            // Tạo đối tượng dữ liệu cho biểu đồ bar chart
+            var chartData = {
+                labels: xShow,
+                datasets: [{
+                    label: titles[titleIndex],
+                    data: y1Show,
+                    backgroundColor: "rgba(0, 156, 255, .7)"
+                },
+                {
+                    label: titles[titleIndex + 1],
+                    data: y2Show,
+                    backgroundColor: "rgba(0, 156, 255, .5)"
+                }]
+            };
+
+            // Tạo biểu đồ bar chart
+            var ctx1 = canvas.get(0).getContext("2d");
+            window.myChart1 = new Chart(ctx1, {
+                type: "bar",
+                data: chartData,
+                options: {
+                    responsive: true
+                }
+            });
     }
     console.log("phắc")
 })(jQuery);

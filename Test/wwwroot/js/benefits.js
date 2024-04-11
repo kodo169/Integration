@@ -29,7 +29,4 @@
                 }
             });
         }
-
-    // Additional functions for the doughnut chart can be added here if needed
-
 })(jQuery);
