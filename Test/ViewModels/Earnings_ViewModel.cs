@@ -10,7 +10,7 @@
         public string? payRateName {  get; set; }
         public decimal? value { get; set; }
         public decimal? tax {  get; set; }
-        public bool? Gender { get; set; }
+        public string? Gender { get; set; }
         public decimal? payAmount { get; set; }
         public decimal? PaidToDate { get; set; }
         public string? Ethnicity { get; set; }

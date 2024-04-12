@@ -2,15 +2,7 @@
 @{
     var currentDate = DateTime.Now;
     var obj = new List<Integration.ViewModels.HiringAnniversarys_ViewModel>();
-    @foreach (var item in Model)
-    {
-        TimeSpan? timeSpan = item.HireDate - currentDate;
-        var daysHiring = timeSpan.HasValue ? timeSpan.Value.Days : 0;
-        if (daysHiring <= 7 && daysHiring>=0)
-        {
-            obj.Add(item);
-        }
-    }
+
 }
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -27,7 +19,7 @@
                     <div class="w-100 ms-3">
                         <div class="d-flex w-100 justify-content-between">
                                                 <h6 class="mb-0" style="color: rgba(0, 156, 255, .7)"> The anniversary of <span style="color:rgb(234 105 149 / 70%)">@($"{item.FisrtName} {item.MiddleInitial} {item.LastName}")</span> recruitment is coming up soon</h6>
-                                            <small><i class="bi bi-arrow-counterclockwise">@($"{(item.HireDate - currentDate)?.Days ?? 0} Days")</i></small>
+                                            <small><i class="bi bi-arrow-counterclockwise"></i></small>
                         </div>
                         <span>Chúc mừng</span>
                      </div>

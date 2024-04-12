@@ -1,16 +1,16 @@
+using Integration.Data;
 using Integration.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
-using Test.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<HrContext>(options =>
+builder.Services.AddDbContext<HrmContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
 builder.Services.AddDbContext<MydbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySQLConnection"),

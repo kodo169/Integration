@@ -1,15 +1,15 @@
-﻿using Integration.Models;
+﻿using Integration.Data;
+using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Test.Data;
 
 namespace Integration.Viewcomponents
 {
     public class NotifyBirthdaysViewComponent : ViewComponent
     {
-        private readonly HrContext _dataSQLServer;
+        private readonly HrmContext _dataSQLServer;
         private readonly MydbContext _dataMySQLServer;
-        public NotifyBirthdaysViewComponent(HrContext dataSQLServer, MydbContext dataMySQLServer)
+        public NotifyBirthdaysViewComponent(HrmContext dataSQLServer, MydbContext dataMySQLServer)
         {
             _dataSQLServer = dataSQLServer;
             _dataMySQLServer = dataMySQLServer;
@@ -25,10 +25,10 @@ namespace Integration.Viewcomponents
             {
                 foreach (var hrP in dataHRPersonal)
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hrP.EmployeeId &&
-                                                                          p.FirstName == hrP.FirstName &&
-                                                                          p.LastName == hrP.LastName);
-                    var hrE = dataHREmployment.FirstOrDefault(e => e.EmployeeId == hrP.EmployeeId);
+                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hrP.PersonalId &&
+                                                                          p.FirstName == hrP.CurrentFirstName &&
+                                                                          p.LastName == hrP.CurrentLastName);
+                    var hrE = dataHREmployment.FirstOrDefault(e => e.PersonalId == hrP.PersonalId);
                     if (prE != null && hrE != null)
                     {
                         data.Add(new NotifyBirthdays_ViewModel

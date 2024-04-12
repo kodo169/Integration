@@ -1,39 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Test.Data;
+namespace Integration.Data;
 
 public partial class JobHistory
 {
-    public decimal Id { get; set; }
+    public decimal JobHistoryId { get; set; }
 
-    public decimal EmployeeId { get; set; }
+    public decimal? EmploymentId { get; set; }
 
     public string? Department { get; set; }
 
     public string? Division { get; set; }
 
-    public DateTime? StartDate { get; set; }
+    public DateOnly? FromDate { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateOnly? ThruDate { get; set; }
 
     public string? JobTitle { get; set; }
 
-    public decimal? Supervisor { get; set; }
-
-    public string? JobCategory { get; set; }
+    public string? Supervisor { get; set; }
 
     public string? Location { get; set; }
 
-    public decimal? DepartmenCode { get; set; }
+    public short? TypeOfWork { get; set; }
 
-    public decimal? SalaryType { get; set; }
-
-    public string? PayPeriod { get; set; }
-
-    public decimal? HoursPerWeek { get; set; }
-
-    public bool? HazardousTraining { get; set; }
-
-    public virtual Personal Employee { get; set; } = null!;
+    public virtual Employment? Employment { get; set; }
 }

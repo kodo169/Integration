@@ -1,15 +1,15 @@
-﻿using Integration.Models;
+﻿using Integration.Data;
+using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Test.Data;
 
 namespace Integration.Viewcomponents
 {
     public class BenefitsViewComponent: ViewComponent
     {
-        private readonly HrContext _dataSQLServer;
+        private readonly HrmContext _dataSQLServer;
         private readonly MydbContext _dataMySQLServer;
-        public BenefitsViewComponent(HrContext dataSQLServer, MydbContext dataMySQLServer)
+        public BenefitsViewComponent(HrmContext dataSQLServer, MydbContext dataMySQLServer)
         {
             _dataSQLServer = dataSQLServer;
             _dataMySQLServer = dataMySQLServer;
@@ -25,9 +25,9 @@ namespace Integration.Viewcomponents
             {
                 foreach (var hr in dataHR)
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hr.EmployeeId &&
-                                                                          p.FirstName == hr.FirstName &&
-                                                                          p.LastName == hr.LastName);
+                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hr.PersonalId &&
+                                                                          p.FirstName == hr.CurrentFirstName &&
+                                                                          p.LastName == hr.CurrentLastName);
                     var prPE = dataPr_Pay_Rates.FirstOrDefault(e => e.IdPayRates == prE.PayRatesIdPayRates);
                     if (prE != null && prE != null)
                     {

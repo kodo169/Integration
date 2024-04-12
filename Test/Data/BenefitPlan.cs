@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Test.Data;
+namespace Integration.Data;
 
 public partial class BenefitPlan
 {
-    public decimal BenefitPlanId { get; set; }
+    public decimal BenefitPlansId { get; set; }
 
     public string? PlanName { get; set; }
 
     public decimal? Deductable { get; set; }
 
-    public int? PercentageCoPay { get; set; }
+    public decimal? PercentageCopay { get; set; }
 
     public virtual ICollection<Personal> Personals { get; set; } = new List<Personal>();
 }

@@ -26,14 +26,14 @@
     var totalPayFemaleLastYear = 0;
     foreach (var item in Model)
     {
-        if (item.Gender == true)
+        if (item.Gender == "Male")
         {
             var totalPay = 0;
             totalPay = (Convert.ToInt32(item.value) - Convert.ToInt32(item.tax) + Convert.ToInt32(item.payAmount));
             totalPayMaleLastYear += totalPay * Convert.ToInt32(item.PaidLastYear);
             totalMale += (totalPay * Convert.ToInt32(item.PaidToDate)) ;
         }
-        else if (item.Gender == false)
+        else if (item.Gender == "Female")
         {
             var totalPay = 0;
             totalPay = (Convert.ToInt32(item.value) - Convert.ToInt32(item.tax) + Convert.ToInt32(item.payAmount));
