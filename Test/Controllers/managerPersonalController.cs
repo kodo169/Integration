@@ -19,7 +19,6 @@ namespace Integration.Controllers
         {
             var inforStaffHRM = _dataSQLServer.Personals
                 .Include(p => p.Employments)
-                .Where(p => p.Employments.Any(e => e.PersonalId == p.PersonalId))
                 .ToList();
             return View(inforStaffHRM);
         }

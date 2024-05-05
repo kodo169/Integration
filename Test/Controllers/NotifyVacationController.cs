@@ -3,18 +3,18 @@ using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Integration.Viewcomponents
+namespace Integration.Controllers
 {
-    public class NotifyVacationsViewComponent : ViewComponent
+    public class NotifyVacationController : Controller
     {
         private readonly HrmContext _dataSQLServer;
         private readonly MydbContext _dataMySQLServer;
-        public NotifyVacationsViewComponent(HrmContext dataSQLServer, MydbContext dataMySQLServer)
+        public NotifyVacationController(HrmContext dataSQLServer, MydbContext dataMySQLServer)
         {
             _dataSQLServer = dataSQLServer;
             _dataMySQLServer = dataMySQLServer;
         }
-        public IViewComponentResult Invoke()
+        public IActionResult Index()
         {
             var dataHRPersonal = _dataSQLServer.Personals.ToList();
             var dataHREmployment = _dataSQLServer.Employments.ToList();
