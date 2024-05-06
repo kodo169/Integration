@@ -12,7 +12,11 @@ namespace Test.Controllers
         {
             _logger = logger;
         }
-
+        [Route("/404")]
+        public IActionResult notFound()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();

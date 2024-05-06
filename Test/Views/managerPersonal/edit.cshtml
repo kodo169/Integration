@@ -1,0 +1,160 @@
+﻿@model Integration.ViewModels.informationEmployee
+@{
+    ViewData["Title"] = "edit";
+}
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4"> Information Employees</h6>
+    <form method="post" action="/managerPersonal/changeInformation">
+        <div class="col-12">
+            <div class="row">
+                <div class="mb-3 col-md-2">
+                    <label class="form-label">ID Employee</label>
+                    <input type="text" class="form-control" name="PersonalId" value="@Model.PersonalId" readonly>
+                </div>
+                <div class="mb-3  col-md-2 ">
+                    <label class="form-label">Number Employee</label>
+                    <input type="text" class="form-control" name="EmployeeNumber" value="@Model.EmployeeNumber" readonly>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios1" value="Male"  @if (Model.CurrentGender == "Male")
+                            {
+                                <text> checked</text>
+                            }> Male
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios2" value="Female" @if (Model.CurrentGender == "Female")
+                            {
+                                <text> checked</text>
+                            }> Female
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="CurrentFirstName" value="@Model.CurrentFirstName">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Middle Name</label>
+                    <input type="text" class="form-control" name="CurrentMiddleName" value="@Model.CurrentMiddleName">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="CurrentLastName" value="@Model.CurrentLastName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" name="CurrentPersonalEmail" value="@Model.CurrentPersonalEmail">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" name="CurrentPhoneNumber" value="@Model.CurrentPhoneNumber">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Birth Day</label>
+                    <input type="text" class="form-control" name="BirthDate" value="@Model.BirthDate">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Social Security Number</label>
+                    <input type="text" class="form-control" name="SocialSecurityNumber" value="@Model.SocialSecurityNumber">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Drivers License</label>
+                    <input type="text" class="form-control" name="DriversLicense" value="@Model.DriversLicense">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Current Address</label>
+                    <input type="text" class="form-control" name="CurrentAddress1" value="@Model.CurrentAddress1">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Permanent Address</label>
+                    <input type="text" class="form-control" name="CurrentAddress2" value="@Model.CurrentAddress2">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-control" name="CurrentCity" value="@Model.CurrentCity">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Country</label>
+                    <input type="text" class="form-control" name="CurrentCountry" value="@Model.CurrentCountry">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">Zip</label>
+                    <input type="text" class="form-control" name="CurrentZip" value="@Model.CurrentZip">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Current Marital Status</label>
+                    <input type="text" class="form-control" name="CurrentMaritalStatus" value="@Model.CurrentMaritalStatus">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Ethnicity</label>
+                    <input type="text" class="form-control" name="Ethnicity" value="@Model.Ethnicity">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Shareholder Status</label>
+                    <input type="text" class="form-control" name="ShareholderStatus" value="@Model.ShareholderStatus">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Benefit Plan Id</label>
+                    <input type="text" class="form-control" name="BenefitPlanId" value="@Model.BenefitPlanId">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">SSN</label>
+                    <input type="text" class="form-control" name="Ssn" value="@Model.Ssn">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Pay Rate</label>
+                    <input type="text" class="form-control" name="PayRate" value="@Model.PayRate">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">PayRatesIdPayRates</label>
+                    <input type="text" class="form-control" name="PayRatesIdPayRates" value="@Model.PayRatesIdPayRates">
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Vacation Days</label>
+                    <input type="text" class="form-control" name="VacationDays" value="@Model.VacationDays">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Paid To Date</label>
+                    <input type="text" class="form-control" name="PaidToDate" value="@Model.PaidToDate">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Paid Last Year</label>
+                    <input type="text" class="form-control" name="PaidLastYear" value="@Model.PaidLastYear">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <a asp-action="Index" asp-controller="managerPersonal" class="btn btn-primary m-md-2 col-md-2">
+                        Back
+                    </a>
+                    <button type="submit" class="btn btn-primary m-md-2 col-md-2">Save</button>
+                    <a asp-action="delete" asp-controller="managerPersonal" asp-route-id="@Model.PersonalId" class="btn btn-primary m-md-2 col-md-2">
+                        Remove
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

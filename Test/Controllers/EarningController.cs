@@ -2,6 +2,7 @@
 using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Integration.Controllers
 {
@@ -18,46 +19,35 @@ namespace Integration.Controllers
         public IActionResult index()
         {
             var dataHR = _dataSQLServer.Personals.ToList();
-            var dataPayroll = _dataMySQLServer.Employees.ToList();
-            var dataPrPayRates = _dataMySQLServer.PayRates.ToList();
-
+            var dataPR = _dataMySQLServer.Employees.ToList();
             var data = new List<Earnings_ViewModel>();
-            if (dataHR.Count != dataPayroll.Count)
+
+            foreach (var item in dataPR)
             {
-                return View(data);
-            }
-            foreach (var hr in dataHR)
-            {
-                var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hr.PersonalId &&
-                                                          p.FirstName == hr.CurrentFirstName &&
-                                                          p.LastName == hr.CurrentLastName);
-                if (prE == null)
-                {
-                    continue;
-                }
-                var prPE = dataPrPayRates.FirstOrDefault(e => e.IdPayRates == prE.PayRatesIdPayRates);
-                if (prPE == null)
-                {
-                    continue;
-                }
+                var infor = dataHR.FirstOrDefault(p => p.PersonalId == item.IdEmployee &&
+                                                          p.CurrentFirstName == item.FirstName &&
+                                                          p.CurrentLastName == item.LastName);
+                if (infor == null) continue;
+                var inforPayroll =_dataMySQLServer.PayRates.FirstOrDefault(p => p.IdPayRates == item.PayRatesIdPayRates);
+                if(inforPayroll == null) continue;
                 var earningsViewModel = new Earnings_ViewModel
                 {
-                    FisrtName = hr.CurrentFirstName,
-                    MiddleInitial = hr.CurrentMiddleName,
-                    LastName = hr.CurrentLastName,
-                    payRateName = prPE.PayRateName,
-                    Gender = hr.CurrentGender,
-                    value = prPE.Value,
-                    tax = prPE.TaxPercentage,
-                    payAmount = prPE.PayAmount,
-                    PaidToDate = prE.PaidToDate,
-                    PaidLastYear = prE.PaidLastYear,
-                    Ethnicity = hr.Ethnicity,
+                    FisrtName = infor.CurrentFirstName,
+                    MiddleInitial = infor.CurrentMiddleName,
+                    LastName = infor.CurrentLastName,
+                    Gender = infor.CurrentGender,
+                    payRateName = inforPayroll.PayRateName,
+                    value = inforPayroll.Value,
+                    tax = inforPayroll.TaxPercentage,
+                    payAmount = inforPayroll.PayAmount,
+                    PaidToDate = item.PaidToDate,
+                    PaidLastYear = item.PaidLastYear,
+                    Ethnicity = infor.Ethnicity,
                 };
-
                 data.Add(earningsViewModel);
             }
             return View(data);
         }
+        
     }
 }
