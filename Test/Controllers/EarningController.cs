@@ -33,6 +33,8 @@ namespace Integration.Controllers
                 // check
                 var earningsViewModel = new Earnings_ViewModel
                 {
+                    idPayRate = item.PayRatesIdPayRates,
+                    ShareholderStatus = infor.ShareholderStatus,
                     FisrtName = infor.CurrentFirstName,
                     MiddleInitial = infor.CurrentMiddleName,
                     LastName = infor.CurrentLastName,

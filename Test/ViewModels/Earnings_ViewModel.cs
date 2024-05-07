@@ -3,6 +3,9 @@
     public class Earnings_ViewModel
     {
         public decimal Id { get; set; }
+
+        public int? idPayRate { get; set; }
+        public short? ShareholderStatus { get; set; }
         public string? FisrtName { get; set;}
         public string? MiddleInitial { get; set; }
         public string? LastName { get; set; }

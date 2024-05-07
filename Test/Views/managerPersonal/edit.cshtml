@@ -107,7 +107,16 @@
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Shareholder Status</label>
-                    <input type="text" class="form-control" name="ShareholderStatus" required value="@Model.ShareholderStatus">
+                    <input type="text" class="form-control" required name="ShareholderStatus"
+                    @if (@Model.ShareholderStatus == 1)
+                    {
+                        <text> value="Shareholder" </text>
+                    }
+                    else
+                    {
+                        <text> value="Non Shareholder" </text>
+                    }
+                    >
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Benefit Plan Name</label>

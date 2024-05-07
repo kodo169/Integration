@@ -2,7 +2,8 @@
 {
     public class managerPersonal_ViewModel
     {
-        public decimal Id { get; set; }
+        public decimal id { get; set; }
+        public decimal numberEmployee { get; set; }
         public string? FisrtName { get; set; }
         public string? MiddleName { get; set; }
         public string? LastName { get; set; }
