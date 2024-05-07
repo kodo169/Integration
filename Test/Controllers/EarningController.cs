@@ -30,6 +30,7 @@ namespace Integration.Controllers
                 if (infor == null) continue;
                 var inforPayroll =_dataMySQLServer.PayRates.FirstOrDefault(p => p.IdPayRates == item.PayRatesIdPayRates);
                 if(inforPayroll == null) continue;
+                // check
                 var earningsViewModel = new Earnings_ViewModel
                 {
                     FisrtName = infor.CurrentFirstName,
