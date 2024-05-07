@@ -18,24 +18,29 @@ namespace Integration.Controllers
 
         public IActionResult Index()
         {
-            var dataHR = _dataSQLServer.Personals.ToList();
+            var dataHRM = _dataSQLServer.Employments.ToList();
             var dataPR = _dataMySQLServer.Employees.ToList();
             var data = new List<managerPersonal_ViewModel>();
-            foreach (var item in dataPR)
+            foreach (var item in dataHRM)
             {
-                var infor = dataHR.FirstOrDefault(p => p.PersonalId == item.IdEmployee &&
-                                          p.CurrentFirstName == item.FirstName &&
-                                          p.CurrentLastName == item.LastName);
+                var dataHRp = _dataSQLServer.Personals.Where(p => p.PersonalId == item.PersonalId).FirstOrDefault();
+                if (dataHRp == null) continue;
+
+                var infor = dataPR.FirstOrDefault(p => p.IdEmployee == item.EmploymentId &&
+                                          dataHRp.CurrentFirstName == p.FirstName &&
+                                          dataHRp.CurrentLastName == p.LastName &&
+                                          Convert.ToInt32(item.EmploymentCode) == p.EmployeeNumber);
+
                 if (infor == null) continue;
                 var informationPersonal = new managerPersonal_ViewModel
                 {
-                    FisrtName = item.FirstName,
-                    Id = infor.PersonalId,
-                    LastName = infor.CurrentLastName,
-                    MiddleName = infor.CurrentMiddleName,
-                    Email = infor.CurrentPersonalEmail,
-                    Country = infor.CurrentCountry,
-                    Shareholder = infor.ShareholderStatus,
+                    FisrtName = infor.FirstName,
+                    Id = infor.EmployeeNumber,
+                    LastName = infor.LastName,
+                    MiddleName = dataHRp.CurrentMiddleName,
+                    Email = dataHRp.CurrentPersonalEmail,
+                    Country = dataHRp.CurrentCountry,
+                    Shareholder = dataHRp.ShareholderStatus,
                 };
                 data.Add(informationPersonal);
             }
@@ -46,6 +51,9 @@ namespace Integration.Controllers
             var dataHR = _dataSQLServer.Personals.Where(p =>p.PersonalId == id).FirstOrDefault();
             var dataPR = _dataMySQLServer.Employees.Where(p => p.IdEmployee == id).FirstOrDefault();
             if (dataHR == null || dataPR == null) { return Redirect("/404"); }
+            var databenefit = _dataSQLServer.BenefitPlans.Where(p => p.BenefitPlansId == dataHR.BenefitPlanId).FirstOrDefault();
+            var dataPayRates = _dataMySQLServer.PayRates.Where(p =>p.IdPayRates == dataPR.PayRatesIdPayRates).FirstOrDefault();
+            if (databenefit == null || dataPayRates == null) return Redirect("/404");
             else
             {
                 if (dataHR.PersonalId == dataPR.IdEmployee && dataHR.CurrentFirstName == dataPR.FirstName && dataHR.CurrentLastName == dataPR.LastName)
@@ -71,6 +79,7 @@ namespace Integration.Controllers
                         Ethnicity = dataHR.Ethnicity,
                         ShareholderStatus = dataHR.ShareholderStatus,
                         BenefitPlanId = dataHR.BenefitPlanId,
+                        BenefitPlanName = databenefit.PlanName,
                         Ssn = dataPR.Ssn,
                         PayRate = dataPR.PayRate,
                         PayRatesIdPayRates = dataPR.PayRatesIdPayRates,
@@ -78,10 +87,11 @@ namespace Integration.Controllers
                         PaidToDate = dataPR.PaidToDate,
                         PaidLastYear = dataPR.PaidLastYear,
                         EmployeeNumber = dataPR.EmployeeNumber,
+                        PayRatesName = dataPayRates.PayRateName,
                     };
                     return View(data);
                 }
-                return Redirect("/404");
+                return View();
             }
         }
         [HttpPost]
@@ -111,7 +121,6 @@ namespace Integration.Controllers
                     dataHR.CurrentMaritalStatus = model.CurrentMaritalStatus;
                     dataHR.Ethnicity = model.Ethnicity;
                     dataHR.ShareholderStatus = model.ShareholderStatus;
-                    dataHR.BenefitPlanId = model.BenefitPlanId;
                     dataPR.Ssn = model.Ssn;
                     dataPR.PayRate = model.PayRate;
                     dataPR.PayRatesIdPayRates = model.PayRatesIdPayRates;
@@ -127,7 +136,7 @@ namespace Integration.Controllers
                         _dataMySQLServer.SaveChanges();
 
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         ViewBag.ErrorMessage = "An error occurred while deleting data.";
                         return Redirect("/404");
@@ -155,7 +164,7 @@ namespace Integration.Controllers
                     _dataSQLServer.SaveChanges();
                     _dataMySQLServer.SaveChanges();
                 }
-                catch (Exception ex)
+                catch
                 {
                     TempData["Message"] = "An error occurred while deleting data.";
                     return Redirect("/404");
@@ -168,7 +177,7 @@ namespace Integration.Controllers
             }
             return RedirectToAction("index");
         }
-
+        [Route("/addEmployee")]
         public IActionResult addEmployee()
         {
             return View();
@@ -176,58 +185,58 @@ namespace Integration.Controllers
         [HttpPost]
         public IActionResult actionAddEmployee(informationEmployee model) 
         {
-            var newPersonalHRM = new Personal();
-            var newEmployeePR = new Employee();
-            if(model != null)
+        var newPersonalHRM = new Personal();
+        var newEmployeePR = new Employee();
+        if (model != null)
+        {
+            newPersonalHRM.PersonalId = model.PersonalId;
+            newPersonalHRM.CurrentFirstName = model.CurrentFirstName;
+            newPersonalHRM.CurrentLastName = model.CurrentLastName;
+            newPersonalHRM.CurrentMiddleName = model.CurrentMiddleName;
+            newPersonalHRM.BirthDate = model.BirthDate;
+            newPersonalHRM.SocialSecurityNumber = model.SocialSecurityNumber;
+            newPersonalHRM.DriversLicense = model.DriversLicense;
+            newPersonalHRM.CurrentAddress1 = model.CurrentAddress1;
+            newPersonalHRM.CurrentAddress2 = model.CurrentAddress2;
+            newPersonalHRM.CurrentCity = model.CurrentCity;
+            newPersonalHRM.CurrentCountry = model.CurrentCountry;
+            newPersonalHRM.CurrentZip = model.CurrentZip;
+            newPersonalHRM.CurrentGender = model.CurrentGender;
+            newPersonalHRM.CurrentPhoneNumber = model.CurrentPhoneNumber;
+            newPersonalHRM.CurrentPersonalEmail = model.CurrentPersonalEmail;
+            newPersonalHRM.CurrentMaritalStatus = model.CurrentMaritalStatus;
+            newPersonalHRM.Ethnicity = model.Ethnicity;
+            newPersonalHRM.ShareholderStatus = model.ShareholderStatus;
+                // lấy văn phòng làm việc hiện tại
+            newEmployeePR.IdEmployee = (Convert.ToInt32(model.PersonalId));
+            newEmployeePR.Ssn = model.Ssn;
+            newEmployeePR.PayRate = model.PayRate;
+            newEmployeePR.PayRatesIdPayRates = model.PayRatesIdPayRates;// change thành payRateName
+            newEmployeePR.VacationDays = model.VacationDays;
+            newEmployeePR.PaidToDate = model.PaidToDate;
+            newEmployeePR.PaidLastYear = model.PaidLastYear;
+            newEmployeePR.LastName = model.CurrentLastName;
+            newEmployeePR.FirstName = model.CurrentFirstName;
+            newEmployeePR.EmployeeNumber = model.EmployeeNumber;
+            _dataSQLServer.Personals.Add(newPersonalHRM);
+            _dataMySQLServer.Employees.Add(newEmployeePR);
+            try
             {
-                newPersonalHRM.PersonalId = model.PersonalId;
-                newPersonalHRM.CurrentFirstName = model.CurrentFirstName;
-                newPersonalHRM.CurrentLastName = model.CurrentLastName;
-                newPersonalHRM.CurrentMiddleName = model.CurrentMiddleName;
-                newPersonalHRM.BirthDate = model.BirthDate;
-                newPersonalHRM.SocialSecurityNumber = model.SocialSecurityNumber;
-                newPersonalHRM.DriversLicense = model.DriversLicense;
-                newPersonalHRM.CurrentAddress1 = model.CurrentAddress1;
-                newPersonalHRM.CurrentAddress2 = model.CurrentAddress2;
-                newPersonalHRM.CurrentCity = model.CurrentCity;
-                newPersonalHRM.CurrentCountry = model.CurrentCountry;
-                newPersonalHRM.CurrentZip = model.CurrentZip;
-                newPersonalHRM.CurrentGender = model.CurrentGender;
-                newPersonalHRM.CurrentPhoneNumber = model.CurrentPhoneNumber;
-                newPersonalHRM.CurrentPersonalEmail = model.CurrentPersonalEmail;
-                newPersonalHRM.CurrentMaritalStatus = model.CurrentMaritalStatus;
-                newPersonalHRM.Ethnicity = model.Ethnicity;
-                newPersonalHRM.ShareholderStatus = model.ShareholderStatus;
-                newPersonalHRM.BenefitPlanId = model.BenefitPlanId;
-                newEmployeePR.IdEmployee = (Convert.ToInt32(model.PersonalId));
-                newEmployeePR.Ssn = model.Ssn;
-                newEmployeePR.PayRate = model.PayRate;
-                newEmployeePR.PayRatesIdPayRates = model.PayRatesIdPayRates;
-                newEmployeePR.VacationDays = model.VacationDays;
-                newEmployeePR.PaidToDate = model.PaidToDate;
-                newEmployeePR.PaidLastYear = model.PaidLastYear;
-                newEmployeePR.LastName = model.CurrentLastName;
-                newEmployeePR.FirstName = model.CurrentFirstName;
-                newEmployeePR.EmployeeNumber = model.EmployeeNumber;
-                _dataSQLServer.Personals.Add(newPersonalHRM);
-                _dataMySQLServer.Employees.Add(newEmployeePR);
-                try
-                {
-                    _dataSQLServer.SaveChanges();
-                    _dataMySQLServer.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    TempData["Message"] = "An error occurred while deleting data.";
-                    return Redirect("/404");
-                }
+                _dataSQLServer.SaveChanges();
+                _dataMySQLServer.SaveChanges();
             }
-            else
+            catch
             {
-                TempData["Message"] = "Data does not exist.";
+                TempData["Message"] = "An error occurred while deleting data.";
                 return Redirect("/404");
             }
-            return RedirectToAction("index");
+        }
+                else
+                {
+                    TempData["Message"] = "Data does not exist.";
+                    return Redirect("/404");
+                }
+                return RedirectToAction("index");
         }
     }
 }

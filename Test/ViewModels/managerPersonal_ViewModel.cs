@@ -10,5 +10,11 @@
         public string? Country { get; set;}
         public string? Email { get; set;}
         public short? Shareholder { get; set; }
+
+        public string? PlanName { get; set; }
+
+        public decimal? Deductable { get; set; }
+
+        public decimal? PercentageCopay { get; set; }
     }
 }

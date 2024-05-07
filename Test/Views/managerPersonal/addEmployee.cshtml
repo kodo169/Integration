@@ -9,20 +9,20 @@
             <div class="row">
                 <div class="mb-3 col-md-2">
                     <label class="form-label">ID Employee</label>
-                    <input type="text" class="form-control" name="PersonalId" value="">
+                    <input type="number" class="form-control" name="PersonalId" required min="1" value="">
                 </div>
                 <div class="mb-3  col-md-2 ">
                     <label class="form-label">Number Employee</label>
-                    <input type="text" class="form-control" name="EmployeeNumber" value="" >
+                    <input type="number" class="form-control" name="EmployeeNumber" value="" readonly>
                 </div>
                 <div class="mb-3 col-md-4">
                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios1" value="Male" > Male
+                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios1" required value="Male"> Male
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios2" value="Female" > Female
+                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios2" required value="Female"> Female
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" name="CurrentFirstName" value="">
+                    <input type="text" class="form-control" required name="CurrentFirstName" value="">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Middle Name</label>
@@ -38,101 +38,101 @@
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="CurrentLastName" value="">
+                    <input type="text" class="form-control" required name="CurrentLastName" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Email</label>
-                    <input type="text" class="form-control" name="CurrentPersonalEmail" value="">
+                    <input type="email" class="form-control" required name="CurrentPersonalEmail" value="">
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" name="CurrentPhoneNumber" value="">
+                    <input type="number" class="form-control" required name="CurrentPhoneNumber" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Birth Day</label>
-                    <input type="text" class="form-control" name="BirthDate" value="">
+                    <input type="date" class="form-control" required name="BirthDate" value="">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Social Security Number</label>
-                    <input type="text" class="form-control" name="SocialSecurityNumber" value="">
+                    <input type="number" class="form-control" required name="SocialSecurityNumber" value="">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Drivers License</label>
-                    <input type="text" class="form-control" name="DriversLicense" value="">
+                    <input type="text" class="form-control" required name="DriversLicense" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Current Address</label>
-                    <input type="text" class="form-control" name="CurrentAddress1" value="">
+                    <input type="text" class="form-control" required name="CurrentAddress1" value="">
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Permanent Address</label>
-                    <input type="text" class="form-control" name="CurrentAddress2" value="">
+                    <input type="text" class="form-control" required name="CurrentAddress2" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control" name="CurrentCity" value="">
+                    <input type="text" class="form-control" required name="CurrentCity" value="">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" name="CurrentCountry" value="">
+                    <input type="text" class="form-control" required name="CurrentCountry" value="">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Zip</label>
-                    <input type="text" class="form-control" name="CurrentZip" value="">
+                    <input type="text" class="form-control" required name="CurrentZip" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Current Marital Status</label>
-                    <input type="text" class="form-control" name="CurrentMaritalStatus" value="">
+                    <input type="text" class="form-control" required name="CurrentMaritalStatus" value="">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Ethnicity</label>
-                    <input type="text" class="form-control" name="Ethnicity" value="">
+                    <input type="text" class="form-control" required name="Ethnicity" value="">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Shareholder Status</label>
-                    <input type="text" class="form-control" name="ShareholderStatus" value="">
+                    <input type="text" class="form-control" required name="ShareholderStatus" value="">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Benefit Plan Id</label>
-                    <input type="text" class="form-control" name="BenefitPlanId" value="">
+                    <input type="text" class="form-control" required name="BenefitPlanId" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-3">
                     <label class="form-label">SSN</label>
-                    <input type="text" class="form-control" name="Ssn" value="">
+                    <input type="number" class="form-control" required name="Ssn" value="">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Pay Rate</label>
-                    <input type="text" class="form-control" name="PayRate" value="">
+                    <input type="text" class="form-control" required name="PayRate" value="">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">PayRatesIdPayRates</label>
-                    <input type="text" class="form-control" name="PayRatesIdPayRates" value="">
+                    <input type="number" class="form-control" required name="PayRatesIdPayRates" value="">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Vacation Days</label>
-                    <input type="text" class="form-control" name="VacationDays" value="">
+                    <input type="number" class="form-control" required name="VacationDays" value="">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Paid To Date</label>
-                    <input type="text" class="form-control" name="PaidToDate" value="">
+                    <input type="number" class="form-control" required min="1" max="100" name="PaidToDate" value="">
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Paid Last Year</label>
-                    <input type="text" class="form-control" name="PaidLastYear" value="">
+                    <input type="number" class="form-control" required min="1" max="100" name="PaidLastYear" value="">
                 </div>
             </div>
             <div class="col-6">

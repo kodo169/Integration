@@ -10,35 +10,34 @@
             <div class="row">
                 <div class="mb-3 col-md-2">
                     <label class="form-label">ID Employee</label>
-                    <input type="text" class="form-control" name="PersonalId" value="@Model.PersonalId" readonly>
+                    <input type="number" class="form-control" name="PersonalId" value="@Model.PersonalId" readonly>
                 </div>
                 <div class="mb-3  col-md-2 ">
                     <label class="form-label">Number Employee</label>
-                    <input type="text" class="form-control" name="EmployeeNumber" value="@Model.EmployeeNumber" readonly>
+                    <input type="text" class="form-control" name="EmployeeNumber" value="@Model.EmployeeNumber"  readonly>
                 </div>
-                <div class="mb-3 col-md-4">
+                <div class="mb-3 col-md-1">
                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios1" value="Male"  @if (Model.CurrentGender == "Male")
+                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios1" value="Male" required @if (Model.CurrentGender=="Male" )
                             {
                                 <text> checked</text>
                             }> Male
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios2" value="Female" @if (Model.CurrentGender == "Female")
+                            <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios2" value="Female" required @if (Model.CurrentGender == "Female")
                             {
                                 <text> checked</text>
                             }> Female
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" name="CurrentFirstName" value="@Model.CurrentFirstName">
+                    <input type="text" class="form-control" name="CurrentFirstName" required value="@Model.CurrentFirstName">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Middle Name</label>
@@ -46,37 +45,37 @@
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="CurrentLastName" value="@Model.CurrentLastName">
+                    <input type="text" class="form-control" name="CurrentLastName" required value="@Model.CurrentLastName">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Email</label>
-                    <input type="text" class="form-control" name="CurrentPersonalEmail" value="@Model.CurrentPersonalEmail">
+                    <input type="email" class="form-control" name="CurrentPersonalEmail" required value="@Model.CurrentPersonalEmail">
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" name="CurrentPhoneNumber" value="@Model.CurrentPhoneNumber">
+                    <input type="number" class="form-control" name="CurrentPhoneNumber" required value="@Model.CurrentPhoneNumber">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Birth Day</label>
-                    <input type="text" class="form-control" name="BirthDate" value="@Model.BirthDate">
+                    <input type="datetime" class="form-control" name="BirthDate" required value="@Model.BirthDate">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Social Security Number</label>
-                    <input type="text" class="form-control" name="SocialSecurityNumber" value="@Model.SocialSecurityNumber">
+                    <input type="number" class="form-control" name="SocialSecurityNumber" required value="@Model.SocialSecurityNumber">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Drivers License</label>
-                    <input type="text" class="form-control" name="DriversLicense" value="@Model.DriversLicense">
+                    <input type="text" class="form-control" name="DriversLicense" required value="@Model.DriversLicense">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Current Address</label>
-                    <input type="text" class="form-control" name="CurrentAddress1" value="@Model.CurrentAddress1">
+                    <input type="text" class="form-control" name="CurrentAddress1" required value="@Model.CurrentAddress1">
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Permanent Address</label>
@@ -86,61 +85,61 @@
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control" name="CurrentCity" value="@Model.CurrentCity">
+                    <input type="text" class="form-control" name="CurrentCity" required value="@Model.CurrentCity">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" name="CurrentCountry" value="@Model.CurrentCountry">
+                    <input type="text" class="form-control" name="CurrentCountry" required value="@Model.CurrentCountry">
                 </div>
                 <div class="mb-3 col-md-4">
                     <label class="form-label">Zip</label>
-                    <input type="text" class="form-control" name="CurrentZip" value="@Model.CurrentZip">
+                    <input type="text" class="form-control" name="CurrentZip" required value="@Model.CurrentZip">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Current Marital Status</label>
-                    <input type="text" class="form-control" name="CurrentMaritalStatus" value="@Model.CurrentMaritalStatus">
+                    <input type="text" class="form-control" name="CurrentMaritalStatus" required value="@Model.CurrentMaritalStatus">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Ethnicity</label>
-                    <input type="text" class="form-control" name="Ethnicity" value="@Model.Ethnicity">
+                    <input type="text" class="form-control" name="Ethnicity" required value="@Model.Ethnicity">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Shareholder Status</label>
-                    <input type="text" class="form-control" name="ShareholderStatus" value="@Model.ShareholderStatus">
+                    <input type="text" class="form-control" name="ShareholderStatus" required value="@Model.ShareholderStatus">
                 </div>
                 <div class="mb-3 col-md-3">
-                    <label class="form-label">Benefit Plan Id</label>
-                    <input type="text" class="form-control" name="BenefitPlanId" value="@Model.BenefitPlanId">
+                    <label class="form-label">Benefit Plan Name</label>
+                    <input type="text" class="form-control" name="BenefitPlanName" required value="@Model.BenefitPlanName">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-3">
                     <label class="form-label">SSN</label>
-                    <input type="text" class="form-control" name="Ssn" value="@Model.Ssn">
+                    <input type="number" class="form-control" name="Ssn" required value="@Model.Ssn">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Pay Rate</label>
-                    <input type="text" class="form-control" name="PayRate" value="@Model.PayRate">
+                    <input type="text" class="form-control" name="PayRate" required value="@Model.PayRate">
                 </div>
                 <div class="mb-3 col-md-3">
-                    <label class="form-label">PayRatesIdPayRates</label>
-                    <input type="text" class="form-control" name="PayRatesIdPayRates" value="@Model.PayRatesIdPayRates">
+                    <label class="form-label">Pay Rate Name</label>
+                    <input type="text" class="form-control" name="PayRatesIdPayRates" required value="@Model.PayRatesName">
                 </div>
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Vacation Days</label>
-                    <input type="text" class="form-control" name="VacationDays" value="@Model.VacationDays">
+                    <input type="number" class="form-control" name="VacationDays" required value="@Model.VacationDays">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Paid To Date</label>
-                    <input type="text" class="form-control" name="PaidToDate" value="@Model.PaidToDate">
+                    <input type="number" class="form-control" name="PaidToDate" required min="1" max="100" value="@Model.PaidToDate">
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">Paid Last Year</label>
-                    <input type="text" class="form-control" name="PaidLastYear" value="@Model.PaidLastYear">
+                    <input type="number" class="form-control" name="PaidLastYear" required min="1" max="100" value="@Model.PaidLastYear">
                 </div>
             </div>
             <div class="col-6">
