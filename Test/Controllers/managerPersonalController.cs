@@ -34,8 +34,9 @@ namespace Integration.Controllers
                 if (infor == null) continue;
                 var informationPersonal = new managerPersonal_ViewModel
                 {
+                    id = infor.IdEmployee,
                     FisrtName = infor.FirstName,
-                    Id = infor.EmployeeNumber,
+                    numberEmployee = infor.EmployeeNumber,
                     LastName = infor.LastName,
                     MiddleName = dataHRp.CurrentMiddleName,
                     Email = dataHRp.CurrentPersonalEmail,
