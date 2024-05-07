@@ -23,7 +23,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <th scope="row">@item.Id</th>
+                            <th scope="row">@item.numberEmployee</th>
                             <td>@item.FisrtName</td>
                             <td>@item.MiddleName</td>
                             <td>@item.LastName</td>
@@ -37,7 +37,7 @@
                             {
                                 <td>No ShareHoler</td>
                             }
-                            <td><a class="btn btn-sm btn-primary" asp-action="edit" asp-controller="managerPersonal" asp-route-id ="@item.Id">Detail</a></td>
+                            <td><a class="btn btn-sm btn-primary" asp-action="edit" asp-controller="managerPersonal" asp-route-id ="@item.id">Detail</a></td>
                         </tr>
                     }
                 </tbody>

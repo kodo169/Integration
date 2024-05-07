@@ -32,6 +32,8 @@ namespace Integration.Controllers
                 if(inforPayroll == null) continue;
                 var earningsViewModel = new Earnings_ViewModel
                 {
+                    idPayRate = item.PayRatesIdPayRates,
+                    ShareholderStatus = infor.ShareholderStatus,
                     FisrtName = infor.CurrentFirstName,
                     MiddleInitial = infor.CurrentMiddleName,
                     LastName = infor.CurrentLastName,
