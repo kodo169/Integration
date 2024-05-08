@@ -36,7 +36,13 @@
     opacity: 1;
 }
 
-
+.btn-style-listmenu {
+    background-color: #f3f6f9;
+    border-color: #6c757d;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+}
 /*** Button ***/
 .btn {
     transition: .5s;
