@@ -13,6 +13,7 @@
     }
 }
 @{
+    List<string> listDepartment = new List<string>();
     List<string> listEthnicity = new List<string>();
     foreach (var item in Model)
     {
@@ -22,6 +23,14 @@
             listEthnicity.Add(item.Ethnicity);
         }
     }
+    // foreach (var item in Model)
+    // {
+    //     if (item == null) continue;
+    //     if (!listDepartment.Contains(item.Department))
+    //     {
+    //         listDepartment.Add(item.Department);
+    //     }
+    // }
     List<string> dataXList = new List<string> { "Stackholder", "Male", "Female", "Full-Time", "Pass-Time" };
     List<int> dataY1List = new List<int>();
     List<int> dataY2List = new List<int>();
@@ -103,6 +112,24 @@
     <div class="row g-4">
         <div class="col-sm-6">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <div class="nav-item dropdown p-4">
+                        <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Department</a>
+                        @{
+                            <div class="dropdown-menu border-0 btn-style-listmenu">
+                                @foreach ( var item in Model)
+                                {
+                                    for (int i =0;i< item.Department.Length; i++)
+                                    {
+                                    <a class="dropdown-item" href="#" > @item.Department[i].ToString()</a>
+
+                                    }
+                                    break;
+                            }
+                            </div>
+                        }
+                    </div>
+            </div>
+
                 <i class="fas fa-dollar-sign fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Today Sale</p>
@@ -134,10 +161,10 @@
                         <h6 class="mb-4">Multiple Bar Chart</h6>
 
                         <div class="d-flex">
-                            <div class="p-4 ">
-                                <button type="button" class="btn"  data-index="0">Shareholder</button>
+                            <div class="nav-item p-4 ">
+                                <button type="button" class="btn" href="#" data-index="0">Shareholder</button>
                             </div>
-                            <div class="dropdown p-4">
+                            <div class=" nav-item dropdown p-4">
                                 <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Gender</a>
                                 <div class="dropdown-menu border-0 btn-style-listmenu">
                                     <a class="dropdown-item" href="#" data-index="1">Male</a>
@@ -169,7 +196,7 @@
                                 data-x='@string.Join(",", dataX)'
                                 data-y1-values='@string.Join(",", dataY1)'
                                 data-y2-values='@string.Join(",", dataY2)'
-                                data-ethnicity='@string.Join(",", listEthnicitys)'>
+                                data-ethnicity='@string.Join(",", listEthnicitys)'>?
                         </canvas>
                     </div>
                 </div>
@@ -178,6 +205,6 @@
     </div>
         <!-- Sales Chart End -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/earing.js"></script>
+    <script src="~/js/earing.js"></script>
     <!-- Sale & Revenue End -->
 </div>

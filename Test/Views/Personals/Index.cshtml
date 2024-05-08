@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Integration.Data.Personal>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentMiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SocialSecurityNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriversLicense)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentAddress1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentAddress2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentCountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentZip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentPhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentPersonalEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentMaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ethnicity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShareholderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BenefitPlan)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentMiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialSecurityNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriversLicense)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAddress1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAddress2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentZip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentPersonalEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentMaritalStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ethnicity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShareholderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BenefitPlan.BenefitPlansId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonalId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonalId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonalId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
