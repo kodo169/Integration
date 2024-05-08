@@ -37,7 +37,7 @@
                             {
                                 <td>No ShareHoler</td>
                             }
-                            <td><a class="btn btn-sm btn-primary" asp-action="edit" asp-controller="managerPersonal" asp-route-id ="@item.id">Detail</a></td>
+                            <td><a class="btn-clickDetail btn-sm " asp-action="edit" asp-controller="managerPersonal" asp-route-id ="@item.id">Detail</a></td>
                         </tr>
                     }
                 </tbody>
@@ -45,7 +45,7 @@
         </div>
         <form asp-action="addEmployee" asp-controller="managerPersonal">
             <div class="col-md-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary m-md-1 col-md-1">Add</button>
+                <button type="submit" class="btn-style btn m-md-1 col-md-1">Add</button>
             </div>
         </form>
 
