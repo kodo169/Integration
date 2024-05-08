@@ -16,7 +16,8 @@
     List<string> listEthnicity = new List<string>();
     foreach (var item in Model)
     {
-        if (!listEthnicity.Contains(item.Ethnicity ))
+        if (item.Ethnicity == null) continue;
+        if (!listEthnicity.Contains(item.Ethnicity))
         {
             listEthnicity.Add(item.Ethnicity);
         }
@@ -72,9 +73,26 @@
             totalPartTime += (totalPay * Convert.ToInt32(item.PaidToDate));
         }
     }
-    dataY1List.AddRange(new List<int> { totalShareHolderLastYear, totalPayMaleLastYear, totalPayFemaleLastYear, totalFullTimeLastYear, totalPartTimeLastYear, 800000, 8000000, 8500000 });
-    dataY2List.AddRange(new List<int> { totalShareHolder, totalMale, totalFemale, totalFullTime, totalPartTime, 4511000, 65871241, 32621451,5151515,5151615 });
+    dataY1List.AddRange(new List<int> { totalShareHolderLastYear, totalPayMaleLastYear, totalPayFemaleLastYear, totalFullTimeLastYear, totalPartTimeLastYear });
+    dataY2List.AddRange(new List<int> { totalShareHolder, totalMale, totalFemale, totalFullTime, totalPartTime });
     var listEthnicitys = listEthnicity.ToArray();
+    for (int i = 0; i < listEthnicitys.Length;i++)
+    {
+        foreach(var item in Model)
+        {
+            if(item.Ethnicity == null) continue;
+            if(listEthnicitys[i].ToString() == item.Ethnicity.ToString())
+            {
+                var totalPay = (Convert.ToInt32(item.value) - Convert.ToInt32(item.tax) + Convert.ToInt32(item.payAmount));
+                var totalEthnicityLastYear = 0;
+                totalEthnicityLastYear += totalPay * Convert.ToInt32(item.PaidLastYear);
+                var totalEthnicity = 0; 
+                totalEthnicity += (totalPay * Convert.ToInt32(item.PaidToDate));
+                dataY1List.Add(totalEthnicityLastYear);
+                dataY2List.Add(totalEthnicity);
+            }
+        }
+    }
     //var dataX = FisrtdataX.Concat(listEthnicitys);
     var dataX = dataXList.ToArray();
     var dataY1 = dataY1List.ToArray();
@@ -127,14 +145,14 @@
                                 </div>
                             </div>
                             <div class="nav-item dropdown p-4">
-                                <a href="#" class="nav-link dropdown-toggle" style="color: black; border-color: #6c757d;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown"></i>Type Job</a>
+                                <a href="#" class="nav-link dropdown-toggle" style="color: black; border-color: #6c757d;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown">Type Job</a>
                                 <div class="dropdown-menu border-0" style="background-color: #f3f6f9;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;">
                                     <a class="dropdown-item" href="#" data-index="3">Full Time</a>
                                     <a class="dropdown-item" href="#" data-index="4">Part Time</a>
                                 </div>
                             </div>
                             <div class="nav-item dropdown p-4">
-                                <a href="#" class="nav-link dropdown-toggle" style="color: black; border-color: #6c757d;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown"></i>Ethnicity</a>
+                                <a href="#" class="nav-link dropdown-toggle" style="color: black; border-color: #6c757d;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown">Ethnicity</a>
                                 @{
                                     var a = 5;
                                     <div class="dropdown-menu border-0" style="background-color: #f3f6f9;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;">
