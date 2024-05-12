@@ -4,9 +4,7 @@
 }
 @model IEnumerable<Integration.ViewModels.HiringAnniversarys_ViewModel>
 @{
-    var currentDate = DateTime.Now;
-    var obj = new List<Integration.ViewModels.HiringAnniversarys_ViewModel>();
-
+    var today = DateTime.Today;
 }
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -16,18 +14,29 @@
                     <h6 class="mb-0">Messages</h6>
                     <a href="">Reload</a>
                 </div>
-                @foreach (var item in obj)
+                @foreach (var item in Model)
                 {
-                    <div class="d-flex align-items-center border-bottom py-3">
-                        <i class="fa fa-bell me-lg-2"></i>
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-0" style="color: rgba(0, 156, 255, .7)"> The anniversary of <span style="color:rgb(234 105 149 / 70%)">@($"{item.FisrtName} {item.MiddleInitial} {item.LastName}")</span> recruitment is coming up soon</h6>
-                                <small><i class="bi bi-arrow-counterclockwise"></i></small>
+                    if (!item.HireDate.HasValue) continue;
+                    if (Convert.ToInt32(today.Month) == Convert.ToInt32(item.HireDate.Value.Month))
+                     {
+                        int result = (Convert.ToInt32(item.HireDate.Value.Day) - Convert.ToInt32(today.Day));
+                        if (result <= 7 && result >=0)
+                        {
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <i class="fa fa-bell me-lg-2"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0" style="color: rgba(0, 156, 255, .7)"> The anniversary of <span style="color:rgb(234 105 149 / 70%)">@($"{item.FisrtName} {item.MiddleInitial} {item.LastName}")</span> recruitment is coming up soon</h6>
+                                        <small>
+                                            @result Days
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </small>
+                                    </div>
+                                    <span>Chúc mừng</span>
+                                </div>
                             </div>
-                            <span>Chúc mừng</span>
-                        </div>
-                    </div>
+                        }
+                     } 
                 }
             </div>
         </div>
