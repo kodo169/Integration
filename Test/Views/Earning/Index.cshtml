@@ -23,14 +23,6 @@
             listEthnicity.Add(item.Ethnicity);
         }
     }
-    // foreach (var item in Model)
-    // {
-    //     if (item == null) continue;
-    //     if (!listDepartment.Contains(item.Department))
-    //     {
-    //         listDepartment.Add(item.Department);
-    //     }
-    // }
     List<string> dataXList = new List<string> { "Stackholder", "Male", "Female", "Full-Time", "Pass-Time" };
     List<int> dataY1List = new List<int>();
     List<int> dataY2List = new List<int>();
@@ -112,28 +104,22 @@
     <div class="row g-4">
         <div class="col-sm-6">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                    <div class="nav-item dropdown p-4">
-                        <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Department</a>
-                        @{
-                            <div class="dropdown-menu border-0 btn-style-listmenu">
-                                @foreach ( var item in Model)
-                                {
-                                    for (int i =0;i< item.Department.Length; i++)
-                                    {
-                                    <a class="dropdown-item" href="#" > @item.Department[i].ToString()</a>
-
-                                    }
-                                    break;
-                            }
-                            </div>
-                        }
+                <div class="row">
+                    <i class="fas fa-dollar-sign fa-3x text-primary"></i>
+                </div>
+                @await Component.InvokeAsync("Department")
+                @foreach(var item in Model)
+                {
+                    <div class="row">
+                        <input type="text" class="form-control" name="PersonalId" value="@item.nameDepartment" readonly>
                     </div>
-            </div>
-
-                <i class="fas fa-dollar-sign fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">@totalEarnings$</h6>
+                    break;
+                }
+                <div class="row">
+                    <div class="ms-4">
+                        <p class="mb-2">Today Sale</p>
+                        <h6 class="mb-0">@totalEarnings$</h6>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,7 +138,8 @@
             </div>
         </div>
     </div>
-    <div>
+
+<div>
         <!-- Sales Chart Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row">

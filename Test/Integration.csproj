@@ -162,8 +162,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Viewcomponents\" />
-    <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
 
 </Project>

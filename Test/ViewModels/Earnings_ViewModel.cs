@@ -18,10 +18,7 @@
         public decimal? PaidToDate { get; set; }
         public string? Ethnicity { get; set; }
         public decimal? PaidLastYear { get; set; }
-
-
-        public string[]? Department { get; set; }
-
+        public string? nameDepartment { get; set; }
         public virtual Integration.Models.PayRate PayRatesIdPayRatesNavigation { get; set; } = null!;
     }
 }
