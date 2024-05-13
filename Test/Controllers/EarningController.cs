@@ -33,8 +33,7 @@ namespace Integration.Controllers
                 {
                     if (jobHistory.Department == nameDepartment)
                     {
-                        var infor = dataPR.FirstOrDefault(p => p.IdEmployee == item.EmploymentId &&
-                                         p.EmployeeNumber.ToString() == item.EmploymentCode);
+                        var infor = dataPR.FirstOrDefault(p => p.EmployeeNumber.ToString() == item.EmploymentCode);
                         if (infor == null) continue;
                         var inforPayroll = _dataMySQLServer.PayRates.FirstOrDefault(p => p.IdPayRates == infor.PayRatesIdPayRates);
                         if (inforPayroll == null) continue;

@@ -6,7 +6,7 @@ namespace Integration.ViewModels
 {
     public class informationEmployee
     {
-        public decimal PersonalId { get; set; }
+        public int Id { get; set; } 
         public string? CurrentFirstName { get; set; }
         public string? CurrentLastName { get; set; }
 

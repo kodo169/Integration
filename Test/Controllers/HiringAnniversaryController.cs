@@ -2,7 +2,6 @@
 using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Integration.Controllers
 {
@@ -17,23 +16,29 @@ namespace Integration.Controllers
         }
         public IActionResult Index()
         {
-            var dataHREmployment = _dataSQLServer.Employments
-                .Include(p => p.Personal)
-                .ToList();
-                
+            var dataHRPersonal = _dataSQLServer.Personals.ToList();
+            var dataHREmployment = _dataSQLServer.Employments.ToList();
+            var dataPayroll = _dataMySQLServer.Employees.ToList();
             var data = new List<HiringAnniversarys_ViewModel>();
-                foreach (var item in dataHREmployment)
+
+            if (dataHRPersonal.Count == dataPayroll.Count)
+            {
+                foreach (var hrP in dataHRPersonal)
                 {
-                    if (item.Personal == null) continue;
-                else
-                {
-                    data.Add(new HiringAnniversarys_ViewModel
+                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hrP.PersonalId &&
+                                                                          p.FirstName == hrP.CurrentFirstName &&
+                                                                          p.LastName == hrP.CurrentLastName);
+                    var hrE = dataHREmployment.FirstOrDefault(e => e.PersonalId == hrP.PersonalId);
+                    if (prE != null && hrE != null)
                     {
-                        FisrtName = item.Personal.CurrentFirstName,
-                        MiddleInitial = item.Personal.CurrentMiddleName,
-                        LastName = item.Personal.CurrentLastName,
-                        HireDate = item.HireDateForWorking
-                    });
+                        data.Add(new HiringAnniversarys_ViewModel
+                        {
+                            FisrtName = hrP.CurrentFirstName,
+                            MiddleInitial = hrP.CurrentMiddleName,
+                            LastName = hrP.CurrentLastName,
+                            HireDate = hrE.HireDateForWorking
+                        });
+                    }
                 }
             }
             return View(data);
