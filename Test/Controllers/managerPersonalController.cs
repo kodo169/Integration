@@ -87,6 +87,9 @@ namespace Integration.Controllers
                     PaidLastYear = dataPR.PaidLastYear,
                     EmployeeNumber = dataPR.EmployeeNumber,
                     PayRatesName = dataPayRates.PayRateName,
+                    NumberDaysRequirementOfWorkingPerMonth = dataHR.NumberDaysRequirementOfWorkingPerMonth,
+                    TerminationDate = dataHR.TerminationDate,
+                    hireDateForWorking = dataHR.HireDateForWorking,
                 };
                 return View(data);
             }
@@ -246,7 +249,10 @@ namespace Integration.Controllers
             newEmployememtHRM.EmploymentId = id;
             newEmployememtHRM.EmploymentCode = id.ToString();
             newEmployememtHRM.PersonalId = id;
-
+            newEmployememtHRM.HireDateForWorking = DateOnly.FromDateTime(DateTime.Now);
+            newEmployememtHRM.EmploymentStatus = "Working";
+            newEmployememtHRM.TerminationDate = model.TerminationDate;
+            newEmployememtHRM.NumberDaysRequirementOfWorkingPerMonth = model.NumberDaysRequirementOfWorkingPerMonth;
             //end addEmployememt
             //start add employee PR
             newEmployeePR.IdEmployee = id;
