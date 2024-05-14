@@ -17,27 +17,16 @@ namespace Integration.Controllers
         public IActionResult Index()
         {
             var dataHRPersonal = _dataSQLServer.Personals.ToList();
-            var dataHREmployment = _dataSQLServer.Employments.ToList();
-            var dataPayroll = _dataMySQLServer.Employees.ToList();
             var data = new List<NotifyBirthdays_ViewModel>();
-
-            if (dataHRPersonal.Count == dataPayroll.Count)
-            {
                 foreach (var hrP in dataHRPersonal)
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hrP.PersonalId &&
-                                                                          p.FirstName == hrP.CurrentFirstName &&
-                                                                          p.LastName == hrP.CurrentLastName);
-                    var hrE = dataHREmployment.FirstOrDefault(e => e.PersonalId == hrP.PersonalId);
-                    if (prE != null && hrE != null)
-                    {
                         data.Add(new NotifyBirthdays_ViewModel
                         {
-                            //gán giá trị cho các đối tượng
+                            FirstName = hrP.CurrentFirstName,
+                            LastName = hrP.CurrentLastName,
+                            BirthDay  = hrP.BirthDate
                         });
-                    }
                 }
-            }
             return View(data);
         }
     }
