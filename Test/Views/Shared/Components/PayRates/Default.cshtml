@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Integration.ViewModels.PayRatesViewModel>
+@{
+    bool check = false;
+}
+<div class="mb-3 col-md-3">
+    <label class="form-label">Pay Rate Name</label>
+    <select class="form-control" name="PayRatesIdPayRates" style="background-color: #FFF !important;" required>
+        @foreach (var item in Model)
+        {
+            if (item.idPayRatesDefaut != null && item.defaultNamePayRates != null && check == false)
+            {
+                <option value="@item.idPayRatesDefaut" selected disabled>@item.defaultNamePayRates</option>
+                check = true;
+            }
+            <option value="@item.IdPayRates">@item.namePayRates</option>
+        }
+    </select>
+</div>

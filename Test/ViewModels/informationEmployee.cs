@@ -6,7 +6,7 @@ namespace Integration.ViewModels
 {
     public class informationEmployee
     {
-        public decimal PersonalId { get; set; }
+        public int Id { get; set; } 
         public string? CurrentFirstName { get; set; }
         public string? CurrentLastName { get; set; }
 
@@ -51,5 +51,10 @@ namespace Integration.ViewModels
 
         public decimal? PaidLastYear { get; set; }
         public int EmployeeNumber { get; set; }
+
+        public DateOnly? TerminationDate { get; set; }
+        public DateOnly? hireDateForWorking { get; set; }
+
+        public decimal? NumberDaysRequirementOfWorkingPerMonth { get; set; }
     }
 }

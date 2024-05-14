@@ -17,52 +17,48 @@ namespace Integration.Controllers
             _dataSQLServer = dataSQLServer;
             _dataMySQLServer = dataMySQLServer;
         }
-        public IActionResult index()
+        public IActionResult index(string? nameDepartment)
         {
+            if (nameDepartment == null) nameDepartment = "Kodo";
             var dataHR = _dataSQLServer.Employments
                 .Include(p => p.Personal)
+                .Include(p => p.JobHistories)
                 .ToList();
-            var dataJobHistories = _dataSQLServer.JobHistories
-                .Include(p => p.JobHistoryId);
-            var dataPR = _dataMySQLServer.Employees.ToList();
+            var dataPR = _dataMySQLServer.Employees
+                .ToList();
             var data = new List<Earnings_ViewModel>();
-            // lấy dữ liệu department
-            var department = _dataSQLServer.JobHistories.ToList();
-            List<string> checkdepartment = new List<string>();
-            foreach (var item1 in department)
+            foreach (var item in dataHR)
             {
-                if (item1.Department == null) continue;
-                checkdepartment.Add(item1.Department);
-            }
-            foreach (var item in dataPR)
-            {
-                var infor = dataHR.FirstOrDefault(p => p.EmploymentId == item.IdEmployee &&
-                                                         p.EmploymentCode == item.EmployeeNumber.ToString());
-                if (infor == null) continue;
-                var inforPayroll =_dataMySQLServer.PayRates.FirstOrDefault(p => p.IdPayRates == item.PayRatesIdPayRates);
-                if(inforPayroll == null) continue;
- 
-                var earningsViewModel = new Earnings_ViewModel
+                foreach (var jobHistory in item.JobHistories)
                 {
-                    Department = checkdepartment.ToArray(),
-                    idPayRate = item.PayRatesIdPayRates,
-                    ShareholderStatus = infor.Personal.ShareholderStatus,
-                    FisrtName = infor.Personal.CurrentFirstName,
-                    MiddleInitial = infor.Personal.CurrentMiddleName,
-                    LastName = infor.Personal.CurrentLastName,
-                    Gender = infor.Personal.CurrentGender,
-                    payRateName = inforPayroll.PayRateName,
-                    value = inforPayroll.Value,
-                    tax = inforPayroll.TaxPercentage,
-                    payAmount = inforPayroll.PayAmount,
-                    PaidToDate = item.PaidToDate,
-                    PaidLastYear = item.PaidLastYear,
-                    Ethnicity = infor.Personal.Ethnicity,
-                };
-                data.Add(earningsViewModel);
+                    if (jobHistory.Department == nameDepartment)
+                    {
+                        var infor = dataPR.FirstOrDefault(p => p.EmployeeNumber.ToString() == item.EmploymentCode);
+                        if (infor == null) continue;
+                        var inforPayroll = _dataMySQLServer.PayRates.FirstOrDefault(p => p.IdPayRates == infor.PayRatesIdPayRates);
+                        if (inforPayroll == null) continue;
+                        var earningsViewModel = new Earnings_ViewModel
+                        {
+                            nameDepartment = nameDepartment,
+                            idPayRate = infor.PayRatesIdPayRates,
+                            ShareholderStatus = item.Personal.ShareholderStatus,
+                            FisrtName = item.Personal.CurrentFirstName,
+                            MiddleInitial = item.Personal.CurrentMiddleName,
+                            LastName = item.Personal.CurrentLastName,
+                            Gender = item.Personal.CurrentGender,
+                            payRateName = inforPayroll.PayRateName,
+                            value = inforPayroll.Value,
+                            tax = inforPayroll.TaxPercentage,
+                            payAmount = inforPayroll.PayAmount,
+                            PaidToDate = infor.PaidToDate,
+                            PaidLastYear = infor.PaidLastYear,
+                            Ethnicity = item.Personal.Ethnicity,
+                        };
+                        data.Add(earningsViewModel);
+                    }
+                }
             }
             return View(data);
         }
-        
     }
 }
