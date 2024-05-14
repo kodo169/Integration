@@ -7,13 +7,9 @@
     <form method="post" action="/managerPersonal/actionAddEmployee">
         <div class="col-12">
             <div class="row">
-                <div class="mb-3 col-md-2">
-                    <label class="form-label">ID Employee</label>
-                    <input type="number" class="form-control" name="PersonalId" required min="1" value="">
-                </div>
                 <div class="mb-3  col-md-2 ">
                     <label class="form-label">Number Employee</label>
-                    <input type="number" class="form-control" name="EmployeeNumber" value="" @* readonly *@>
+                    <input type="number" class="form-control" name="EmployeeNumber" value="" readonly>
                 </div>
                 <div class="mb-3 col-md-4">
                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
@@ -102,10 +98,8 @@
                     <label class="form-label">Shareholder Status</label>
                     <input type="text" class="form-control" required name="ShareholderStatus" value="">
                 </div>
-                <div class="mb-3 col-md-3">
-                    <label class="form-label">Benefit Plan Id</label>
-                    <input type="text" class="form-control" required name="BenefitPlanId" value="">
-                </div>
+                @await Component.InvokeAsync("Benefit")
+
             </div>
             <div class="row">
                 <div class="mb-3 col-md-3">
@@ -116,10 +110,11 @@
                     <label class="form-label">Pay Rate</label>
                     <input type="text" class="form-control" required name="PayRate" value="">
                 </div>
-                <div class="mb-3 col-md-3">
+@*                 <div class="mb-3 col-md-3">
                     <label class="form-label">PayRatesIdPayRates</label>
                     <input type="number" class="form-control" required name="PayRatesIdPayRates" value="">
-                </div>
+                </div> *@
+                @await Component.InvokeAsync("PayRates")
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Vacation Days</label>
                     <input type="number" class="form-control" required name="VacationDays" value="">

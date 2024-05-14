@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Integration.ViewModels.Department_ViewModel>
+
+<div class="row">
+    <div class="dropdown p-4">
+                <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Department</a>
+        @{
+                    <div class="dropdown-menu border-0 btn-style-listmenu">
+                @foreach (var item in Model)
+                {
+                    <a asp-area="" asp-action="index" asp-controller="Earning" asp-route-nameDepartment="@item.nameDepartment" class="dropdown-item">@item.nameDepartment</a>
+                }
+            </div>
+        }
+    </div>
+</div>

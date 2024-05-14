@@ -1,0 +1,18 @@
+﻿ @model IEnumerable<Integration.ViewModels.listbenefit_ViewModel>
+@{
+    bool check = false;
+}
+<div class="mb-3 col-md-3">
+    <label class="form-label">Benefit Plan</label>
+    <select class="form-control" name="BenefitPlanId" style="background-color: #FFF !important;" required>
+        @foreach (var item in Model)
+        {
+            if(item.IdDefault != null && item.defaultNameBenefit != null && check == false)
+            {
+                <option value="@item.IdDefault" selected disabled>@item.defaultNameBenefit</option>
+                check = true;
+            }
+            <option value="@item.Id">@item.nameBenefit</option>
+        }
+    </select>
+</div>

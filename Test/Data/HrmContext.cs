@@ -25,6 +25,8 @@ public partial class HrmContext : DbContext
 
     public virtual DbSet<Personal> Personals { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:SQLServerConnection");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -12,6 +12,10 @@ public partial class Employment
     public string? EmploymentStatus { get; set; }
 
     public DateOnly? HireDateForWorking { get; set; }
+
+    /// <summary>
+    /// MÃ CÔNG VIỆC
+    /// </summary>
     public string? WorkersCompCode { get; set; }
 
     public DateOnly? TerminationDate { get; set; }
