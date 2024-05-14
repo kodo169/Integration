@@ -103,55 +103,56 @@ namespace Integration.Controllers
             var dataPR = _dataMySQLServer.Employees.Where(p => p.EmployeeNumber == model.EmployeeNumber).FirstOrDefault();
             if (dataHRM == null || dataPR == null) { return View(); }
             if(model.PayRatesIdPayRates == 0) model.PayRatesIdPayRates = dataPR.PayRatesIdPayRates;
-            else
+            if (dataHRM.Personal == null) return View();
+            dataHRM.Personal.CurrentFirstName = model.CurrentFirstName;
+            dataHRM.Personal.CurrentLastName = model.CurrentLastName;
+            dataHRM.Personal.CurrentMiddleName = model.CurrentMiddleName;
+            dataHRM.Personal.BirthDate = model.BirthDate;
+            dataHRM.Personal.SocialSecurityNumber = model.SocialSecurityNumber;
+            dataHRM.Personal.DriversLicense = model.DriversLicense;
+            dataHRM.Personal.CurrentAddress1 = model.CurrentAddress1;
+            dataHRM.Personal.CurrentAddress2 = model.CurrentAddress2;
+            dataHRM.Personal.CurrentCity = model.CurrentCity;
+            dataHRM.Personal.CurrentCountry = model.CurrentCountry;
+            dataHRM.Personal.CurrentZip = model.CurrentZip;
+            dataHRM.Personal.CurrentGender = model.CurrentGender;
+            dataHRM.Personal.CurrentPhoneNumber = model.CurrentPhoneNumber;
+            dataHRM.Personal.CurrentPersonalEmail = model.CurrentPersonalEmail;
+            dataHRM.Personal.CurrentMaritalStatus = model.CurrentMaritalStatus;
+            dataHRM.Personal.Ethnicity = model.Ethnicity;
+            dataHRM.Personal.ShareholderStatus = model.ShareholderStatus;
+            if (model.BenefitPlanId != null) 
             {
-                if (dataHRM.Personal == null) return View();
-                dataHRM.Personal.CurrentFirstName = model.CurrentFirstName;
-                dataHRM.Personal.CurrentLastName = model.CurrentLastName;
-                dataHRM.Personal.CurrentMiddleName = model.CurrentMiddleName;
-                dataHRM.Personal.BirthDate = model.BirthDate;
-                dataHRM.Personal.SocialSecurityNumber = model.SocialSecurityNumber;
-                dataHRM.Personal.DriversLicense = model.DriversLicense;
-                dataHRM.Personal.CurrentAddress1 = model.CurrentAddress1;
-                dataHRM.Personal.CurrentAddress2 = model.CurrentAddress2;
-                dataHRM.Personal.CurrentCity = model.CurrentCity;
-                dataHRM.Personal.CurrentCountry = model.CurrentCountry;
-                dataHRM.Personal.CurrentZip = model.CurrentZip;
-                dataHRM.Personal.CurrentGender = model.CurrentGender;
-                dataHRM.Personal.CurrentPhoneNumber = model.CurrentPhoneNumber;
-                dataHRM.Personal.CurrentPersonalEmail = model.CurrentPersonalEmail;
-                dataHRM.Personal.CurrentMaritalStatus = model.CurrentMaritalStatus;
-                dataHRM.Personal.Ethnicity = model.Ethnicity;
-                dataHRM.Personal.ShareholderStatus = model.ShareholderStatus;
-                if(model.BenefitPlanId != null) dataHRM.Personal.BenefitPlanId = model.BenefitPlanId;
-                var newDataPR = new Employee
-                {
-                    Ssn = model.Ssn,
-                    PayRate = model.PayRate,
-                    VacationDays = model.VacationDays,
-                    PaidToDate = model.PaidToDate,
-                    PaidLastYear = model.PaidLastYear,
-                    LastName = model.CurrentLastName,
-                    FirstName = model.CurrentFirstName,
-                    EmployeeNumber = model.EmployeeNumber,
-                    PayRatesIdPayRates = model.PayRatesIdPayRates,
-                };
-                try
-                {
-                    _dataSQLServer.SaveChanges();
-                    _dataMySQLServer.Remove(dataPR);
-                    _dataMySQLServer.Add(newDataPR);
-                    _dataMySQLServer.SaveChanges();
+                dataHRM.Personal.BenefitPlanId = model.BenefitPlanId;
+                dataHRM.LastReviewDate = DateOnly.FromDateTime(DateTime.Now);
+            };
+            var newDataPR = new Employee
+            {
+                Ssn = model.Ssn,
+                PayRate = model.PayRate,
+                VacationDays = model.VacationDays,
+                PaidToDate = model.PaidToDate,
+                PaidLastYear = model.PaidLastYear,
+                LastName = model.CurrentLastName,
+                FirstName = model.CurrentFirstName,
+                EmployeeNumber = model.EmployeeNumber,
+                PayRatesIdPayRates = model.PayRatesIdPayRates,
+            };
+            try
+            {
+                _dataSQLServer.SaveChanges();
+                _dataMySQLServer.Remove(dataPR);
+                _dataMySQLServer.Add(newDataPR);
+                _dataMySQLServer.SaveChanges();
 
-                }
-                catch
-                {
-                    ViewBag.ErrorMessage = "An error occurred while deleting data.";
-                    return Redirect("/404");
-                }
             }
-            return RedirectToAction("edit",new { numberEmployment = model.EmployeeNumber });
-        }
+            catch
+            {
+                ViewBag.ErrorMessage = "An error occurred while deleting data.";
+                return Redirect("/404");
+            }
+                return RedirectToAction("edit",new { numberEmployment = model.EmployeeNumber });
+            }
 
         public IActionResult delete(int? numberEmployment)
         {
