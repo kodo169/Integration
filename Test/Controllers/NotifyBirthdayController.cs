@@ -21,7 +21,7 @@ namespace Integration.Controllers
             var dataPayroll = _dataMySQLServer.Employees.ToList();
             var data = new List<NotifyBirthdays_ViewModel>();
 
-            if (dataHRPersonal.Count == dataPayroll.Count)
+            if (dataHRPersonal.Count == dataPayroll.Count) 
             {
                 foreach (var hrP in dataHRPersonal)
                 {
@@ -33,7 +33,9 @@ namespace Integration.Controllers
                     {
                         data.Add(new NotifyBirthdays_ViewModel
                         {
-                            //gán giá trị cho các đối tượng
+                            FirstName = prE.FirstName,
+                            LastName = prE.LastName,
+                            BirthDay  = hrP.BirthDate
                         });
                     }
                 }

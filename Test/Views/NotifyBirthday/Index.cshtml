@@ -5,9 +5,15 @@
 @model IEnumerable<Integration.ViewModels.NotifyBirthdays_ViewModel>
 @{
     var currentDate = DateTime.Now;
-    var obj = new List<Integration.ViewModels.NotifyBirthdays_ViewModel>();
+    // sinh nhật 3 ngày trk DateTime dt = new DateTime(2024,5,11 )
+    string getCurrentMonthday = currentDate.ToString("MM/dd"); // lấy ra ngày tháng hiện tại
+    var obj = new List <Integration.ViewModels.NotifyBirthdays_ViewModel>();
     @foreach (var item in Model)
     {
+        if(getCurrentMonthday == item.BirthDay.ToString())
+        {
+            obj.Add(item);
+        }
     }
 }
 <div class="container-fluid pt-4 px-4">
@@ -27,7 +33,7 @@
                                 <h6 class="mb-0" style="color: rgba(0, 156, 255, .7)"> The anniversary of <span style="color:rgb(234 105 149 / 70%)"></span> recruitment is coming up soon</h6>
                                 <small><i class="bi bi-arrow-counterclockwise"></i></small>
                             </div>
-                            <span>Chúc mừng</span>
+                            <span>Chúc mừng sinh nhật @item.FirstName @item.LastName</span>
                         </div>
                     </div>
                 }
