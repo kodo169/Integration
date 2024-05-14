@@ -2,6 +2,7 @@
 using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Integration.Controllers
 {
@@ -16,26 +17,26 @@ namespace Integration.Controllers
         }
         public IActionResult Index()
         {
-            var dataHRPersonal = _dataSQLServer.Personals.ToList();
-            var dataHREmployment = _dataSQLServer.Employments.ToList();
-            var dataPayroll = _dataMySQLServer.Employees.ToList();
-            var data = new List<NotifyVacations_ViewModel>();
+            var dataHREmployment = _dataSQLServer.EmploymentWorkingTimes
+                .Include(p => p.Employment.Personal)
+                .ToList();
 
-            if (dataHRPersonal.Count == dataPayroll.Count)
+            var data = new List<NotifyVacations_ViewModel>();
+            foreach (var item in dataHREmployment)
             {
-                foreach (var hrP in dataHRPersonal)
+                if (item.Employment.Personal == null) continue;
+                else
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hrP.PersonalId &&
-                                                                          p.FirstName == hrP.CurrentFirstName &&
-                                                                          p.LastName == hrP.CurrentLastName);
-                    var hrE = dataHREmployment.FirstOrDefault(e => e.PersonalId == hrP.PersonalId);
-                    if (prE != null && hrE != null)
+                    data.Add(new NotifyVacations_ViewModel
                     {
-                        data.Add(new NotifyVacations_ViewModel
-                        {
-                            //gán giá trị cho các đối tượng
-                        });
-                    }
+                        FisrtName = item.Employment.Personal.CurrentFirstName,
+                        MiddleInitial = item.Employment.Personal.CurrentMiddleName,
+                        LastName = item.Employment.Personal.CurrentLastName,
+                        Actualday = Convert.ToInt32(item.NumberDaysActualOfWorkingPerMonth),
+                        Year = item.YearWorking,
+                        Month = Convert.ToInt32(item.MonthWorking),
+                        Total = Convert.ToInt32(item.TotalNumberVacationWorkingDaysPerMonth),
+                    });
                 }
             }
             return View(data);
