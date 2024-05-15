@@ -5,6 +5,7 @@
         public string?FirstName { get; set; }
         public string? LastName  { get; set; }    
 
+        public string? MiiderName { get; set; }
         public DateOnly? BirthDay { get; set; }
 
     }

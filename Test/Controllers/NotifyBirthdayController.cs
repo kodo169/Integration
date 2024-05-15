@@ -24,7 +24,8 @@ namespace Integration.Controllers
                         {
                             FirstName = hrP.CurrentFirstName,
                             LastName = hrP.CurrentLastName,
-                            BirthDay  = hrP.BirthDate
+                            BirthDay  = hrP.BirthDate,
+                            MiiderName = hrP.CurrentMiddleName,
                         });
                 }
             return View(data);
