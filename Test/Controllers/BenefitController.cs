@@ -8,19 +8,13 @@ namespace Integration.Controllers
     public class BenefitController : Controller
     {
         private readonly HrmContext _dataSQLServer;
-        private readonly MydbContext _dataMySQLServer;
 
         public BenefitController(HrmContext dataSQLServer, MydbContext dataMySQLServer)
         {
             _dataSQLServer = dataSQLServer;
-            _dataMySQLServer = dataMySQLServer;
         }
         public IActionResult Index()
         {
-            var dataHR = _dataSQLServer.Personals.ToList();
-            var dataPayroll = _dataMySQLServer.Employees.ToList();
-            var dataPr_Pay_Rates = _dataMySQLServer.PayRates.ToList();
-            var data = new List<Benefits_ViewModel>();
 
             if (dataHR.Count == dataPayroll.Count)
             {
