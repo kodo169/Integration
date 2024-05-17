@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "addEmployee";
 }
+@{
+    var futureDate = DateOnly.FromDateTime(DateTime.Now.AddYears(5));
+}
 <div class="bg-light rounded h-100 p-4">
     <h6 class="mb-4"> Information Employees</h6>
     <form method="post" action="/managerPersonal/actionAddEmployee">
@@ -11,9 +14,9 @@
                     <label class="form-label">Number Employee</label>
                     <input type="number" class="form-control" name="EmployeeNumber" value="" readonly>
                 </div>
-                <div class="mb-3 col-md-4">
+                <div class="mb-3 col-md-2">
                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
-                    <div class="col-sm-10">
+                    <div class="col-sm-40">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios1" required value="Male"> Male
                         </div>
@@ -21,6 +24,18 @@
                             <input class="form-check-input" type="radio" name="CurrentGender" id="gridRadios2" required value="Female"> Female
                         </div>
                     </div>
+                </div>
+                <div class="mb-3  col-md-2 ">
+                    <label class="form-label">Hire Date</label>
+                    <input type="datetime" class="form-control" value="@DateOnly.FromDateTime(DateTime.Now)" readonly>
+                </div>
+                <div class="mb-3  col-md-2 ">
+                    <label class="form-label">Termination Date</label>
+                    <input type="datetime" class="form-control" name="TerminationDate" value="@futureDate">
+                </div>
+                <div class="mb-3  col-md-4 ">
+                    <label class="form-label">Number Days Requirement Of Working Per Month</label>
+                    <input type="number" class="form-control" name="NumberDaysRequirementOfWorkingPerMonth" min="0" max ="6" value="">
                 </div>
             </div>
             <div class="row">
@@ -110,10 +125,6 @@
                     <label class="form-label">Pay Rate</label>
                     <input type="text" class="form-control" required name="PayRate" value="">
                 </div>
-@*                 <div class="mb-3 col-md-3">
-                    <label class="form-label">PayRatesIdPayRates</label>
-                    <input type="number" class="form-control" required name="PayRatesIdPayRates" value="">
-                </div> *@
                 @await Component.InvokeAsync("PayRates")
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Vacation Days</label>
@@ -135,7 +146,7 @@
                     <a asp-action="index" asp-controller="managerPersonal" class="asp-style-btn btn-style m-md-2 col-md-2"> Back</a>
                     <button type="submit" class="asp-style-btn btn-style m-md-2 col-md-2">
                             Save
-                        </button>
+                    </button>
                 </div>
             </div>
         </div>

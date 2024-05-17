@@ -51,5 +51,10 @@ namespace Integration.ViewModels
 
         public decimal? PaidLastYear { get; set; }
         public int EmployeeNumber { get; set; }
+
+        public DateOnly? TerminationDate { get; set; }
+        public DateOnly? hireDateForWorking { get; set; }
+
+        public decimal? NumberDaysRequirementOfWorkingPerMonth { get; set; }
     }
 }

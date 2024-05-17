@@ -20,5 +20,6 @@
         public decimal? PaidLastYear { get; set; }
         public string? nameDepartment { get; set; }
         public virtual Integration.Models.PayRate PayRatesIdPayRatesNavigation { get; set; } = null!;
+        public string[] Department { get; internal set; }
     }
 }
