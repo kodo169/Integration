@@ -25,19 +25,10 @@ namespace Integration.Controllers
                 {
                     BenefitId = bp.BenefitPlansId,
                     PlanName = bp.PlanName,
-                    AverageBenefitNonshareholder = data.Count(p => p.ShareholderStatus == 0 && p.BenefitPlanId == bp.BenefitPlansId) * (double?)bp.Deductable * (double?)bp.PercentageCopay/100,
-                    AverageBenefitshareholder = data.Count(p => p.ShareholderStatus == 1 && p.BenefitPlanId == bp.BenefitPlansId) * (double?)bp.Deductable *    (double?)bp.PercentageCopay/100
-                }).ToList();
-            var nonShareholderPlans = benefitPlans
-                .Where(bp => bp.AverageBenefitNonshareholder > 0)
+                    AverageBenefitNonshareholder = data.Count(p => p.ShareholderStatus == 0 && p.BenefitPlanId == bp.BenefitPlansId) * (double?)bp.Deductable * (double?)bp.PercentageCopay / 100,
+                    AverageBenefitshareholder = data.Count(p => p.ShareholderStatus == 1 && p.BenefitPlanId == bp.BenefitPlansId) * (double?)bp.Deductable * (double?)bp.PercentageCopay / 100
+                }).Where(bp => bp.AverageBenefitNonshareholder != 0 || bp.AverageBenefitshareholder != 0)
                 .ToList();
-
-            var shareholderPlans = benefitPlans
-                .Where(bp => bp.AverageBenefitshareholder > 0)
-                .ToList();
-
-            ViewBag.NonShareholderPlans = nonShareholderPlans;
-            ViewBag.ShareholderPlans = shareholderPlans;
 
             return View(benefitPlans);
         }

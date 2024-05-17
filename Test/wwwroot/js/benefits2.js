@@ -2,11 +2,11 @@
     "use strict";
     var canvasDoughnut1 = $("#doughnut-chart1");
     if (canvasDoughnut1.length) {
-        var doughnutLabels1 = canvasDoughnut1.data("labels1");
-        var doughnutValues1 = canvasDoughnut1.data("values1");
+        var doughnutLabels1 = canvasDoughnut1.data("labels");
+        var doughnutValues1 = canvasDoughnut1.data("values");
 
         var doughnutData1 = {
-            labels1: doughnutLabels1,
+            labels: doughnutLabels1,
             datasets: [{
                 backgroundColor: [
                     "rgba(255, 99, 132, 0.7)",
