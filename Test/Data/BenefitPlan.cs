@@ -14,4 +14,6 @@ public partial class BenefitPlan
     public decimal? PercentageCopay { get; set; }
 
     public virtual ICollection<Personal> Personals { get; set; } = new List<Personal>();
+
+    
 }
