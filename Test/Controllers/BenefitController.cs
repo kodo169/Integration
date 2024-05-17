@@ -2,6 +2,7 @@
 using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Integration.Controllers
 {
@@ -9,31 +10,36 @@ namespace Integration.Controllers
     {
         private readonly HrmContext _dataSQLServer;
 
-        public BenefitController(HrmContext dataSQLServer, MydbContext dataMySQLServer)
+        public BenefitController(HrmContext dataSQLServer)
         {
             _dataSQLServer = dataSQLServer;
         }
         public IActionResult Index()
         {
-
-            if (dataHR.Count == dataPayroll.Count)
-            {
-                foreach (var hr in dataHR)
+            var data = _dataSQLServer.Personals
+               .Include(p => p.BenefitPlan)
+               .ToList();
+            var benefitPlans = _dataSQLServer.BenefitPlans
+                .AsEnumerable()  // Switch to client evaluation
+                .Select(bp => new Benefits_ViewModel
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hr.PersonalId &&
-                                                                          p.FirstName == hr.CurrentFirstName &&
-                                                                          p.LastName == hr.CurrentLastName);
-                    var prPE = dataPr_Pay_Rates.FirstOrDefault(e => e.IdPayRates == prE.PayRatesIdPayRates);
-                    if (prE != null && prE != null)
-                    {
-                        data.Add(new Benefits_ViewModel
-                        {
-                            //gán các đối tượng tại đây
-                        });
-                    }
-                }
-            }
-            return View(data);
+                    BenefitId = bp.BenefitPlansId,
+                    PlanName = bp.PlanName,
+                    AverageBenefitNonshareholder = data.Count(p => p.ShareholderStatus == 0 && p.BenefitPlanId == bp.BenefitPlansId) * (double?)bp.Deductable * (double?)bp.PercentageCopay/100,
+                    AverageBenefitshareholder = data.Count(p => p.ShareholderStatus == 1 && p.BenefitPlanId == bp.BenefitPlansId) * (double?)bp.Deductable *    (double?)bp.PercentageCopay/100
+                }).ToList();
+            var nonShareholderPlans = benefitPlans
+                .Where(bp => bp.AverageBenefitNonshareholder > 0)
+                .ToList();
+
+            var shareholderPlans = benefitPlans
+                .Where(bp => bp.AverageBenefitshareholder > 0)
+                .ToList();
+
+            ViewBag.NonShareholderPlans = nonShareholderPlans;
+            ViewBag.ShareholderPlans = shareholderPlans;
+
+            return View(benefitPlans);
         }
     }
 }

@@ -2,32 +2,39 @@
 @{
     Layout = "_LayoutCustomer";
     ViewBag.Title = "Trang chủ";
+    var nonShareholderPlans = ViewBag.NonShareholderPlans as List<Integration.ViewModels.Benefits_ViewModel>;
+    var shareholderPlans = ViewBag.ShareholderPlans as List<Integration.ViewModels.Benefits_ViewModel>;
 }
-<div>
-
-    <div class="bg-light rounded mt-4" style="height: 100vh;">
-        <!-- Sales Chart Start -->
-        <div>
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-sm-6">
-                        <div class="bg-light rounded h-100 p-4 w-100">
-                            <h6 class="mb-4">Doughnut Chart</h6>
-                            <canvas id="doughnut-chart"
-                                    data-labels='["Italy", "France", "Spain", "USA", "Argentina"]'
-                                    data-values="[55, 49, 44, 24, 15]">
-                            </canvas>
-                        </div>
-                    </div>
-                </div>
+<div class="row justify-content-center">
+    <div class="col-sm-6">
+        <div class="bg-light rounded mt-4 h-100">
+            <!-- Non-Shareholder Chart Start -->
+            <div class="h-100 p-4">
+                <h6 class="mb-4">Non-Shareholder</h6>
+                <canvas id="doughnut-chart"
+                        data-labels='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(nonShareholderPlans.Select(m => m.PlanName)))'
+                        data-values='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.AverageBenefitNonshareholder)))'>
+                </canvas>
             </div>
+            <!-- Non-Shareholder Chart End -->
         </div>
     </div>
-
-    <!-- Sales Chart End -->
+    <div class="col-sm-6">
+        <div class="bg-light rounded mt-4 h-100">
+            <!-- Shareholder Chart Start -->
+            <div class="h-100 p-4">
+                <h6 class="mb-4">Shareholder</h6>
+                <canvas id="doughnut-chart1"
+                        data-labels1='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(shareholderPlans.Select(m => m.PlanName)))'
+                        data-values1='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.AverageBenefitshareholder)))'>
+                </canvas>
+            </div>
+            <!-- Shareholder Chart End -->
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="js/benefits.js"></script>
-<!-- Nội dung của trang Index kết thúc -->
+<script src="~/js/benefits.js"></script>
+<script src="~/js/benefits2.js"></script>

@@ -25,6 +25,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="mb-3  col-md-2 ">
+                    <label class="form-label">Hire Date</label>
+                    <input type="datetime" class="form-control" value="@Model.hireDateForWorking" readonly>
+                </div>
+                <div class="mb-3  col-md-2 ">
+                    <label class="form-label">Termination Date</label>
+                    <input type="datetime" class="form-control" name="TerminationDate" value="@Model.TerminationDate" readonly>
+                </div>
+                <div class="mb-3  col-md-4 ">
+                    <label class="form-label">Number Days Requirement Of Working Per Month</label>
+                    <input type="number" class="form-control" name="NumberDaysRequirementOfWorkingPerMonth" min="0" max="6" value="@Model.NumberDaysRequirementOfWorkingPerMonth">
+                </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
