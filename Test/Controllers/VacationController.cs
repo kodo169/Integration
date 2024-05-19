@@ -2,6 +2,7 @@
 using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Integration.Controllers
 {
@@ -16,27 +17,28 @@ namespace Integration.Controllers
         }
         public IActionResult Index()
         {
-            var dataHR = _dataSQLServer.Personals.ToList();
-            var dataPayroll = _dataMySQLServer.Employees.ToList();
-            var dataPr_Pay_Rates = _dataMySQLServer.PayRates.ToList();
+            var dataHR = _dataSQLServer.Employments
+                .Include(p => p.Personal)
+                .Include(p => p.EmploymentWorkingTimes)
+                .ToList();
             var data = new List<Vacations_ViewModel>();
 
-            if (dataHR.Count == dataPayroll.Count)
+            foreach (var item in dataHR)
             {
-                foreach (var hr in dataHR)
+                var dataE = _dataSQLServer.Employments.FirstOrDefault(p => p.PersonalId == item.PersonalId);
+                var dataVC = _dataSQLServer.EmploymentWorkingTimes.FirstOrDefault(P => P.EmploymentId == item.EmploymentId);
+                if (dataE == null) continue;
+                var vacationsViewModel = new Vacations_ViewModel
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hr.PersonalId &&
-                                                                          p.FirstName == hr.CurrentFirstName &&
-                                                                          p.LastName == hr.CurrentLastName);
-                    var prPE = dataPr_Pay_Rates.FirstOrDefault(e => e.IdPayRates == prE.PayRatesIdPayRates);
-                    if (prE != null && prE != null)
-                    {
-                        data.Add(new Vacations_ViewModel
-                        {
-                            //gán các đối tượng tại đây
-                        });
-                    }
-                }
+                    ShareholderStatus = item.Personal.ShareholderStatus,
+                    Gender = item.Personal.CurrentGender,
+                    Ethnicity = item.Personal.Ethnicity,
+                    VacationDays = dataVC.TotalNumberVacationWorkingDaysPerMonth,
+                    YearWorking = dataVC.YearWorking,
+                    MonthWorking = dataVC.MonthWorking,
+                    EmploymentStatus = item.EmploymentStatus,
+                };
+                data.Add(vacationsViewModel);
             }
             return View(data);
         }

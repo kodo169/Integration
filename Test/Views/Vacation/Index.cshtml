@@ -1,105 +1,240 @@
-﻿@{
+﻿@model IEnumerable<Integration.ViewModels.Vacations_ViewModel>
+@{
     Layout = "_LayoutCustomer";
     ViewBag.Title = "Trang chủ";
 }
-@model IEnumerable<Integration.ViewModels.Vacations_ViewModel>
+@{
+    var totalVacations = 0;
+    @foreach (var item in Model)
+    {
+
+        totalVacations += Convert.ToInt32(item.VacationDays);
+    }
+}
 @{
     List<string> listEthnicity = new List<string>();
+    foreach (var item in Model)
+    {
+        if (item.Ethnicity == null) continue;
+        if (!listEthnicity.Contains(item.Ethnicity))
+        {
+            listEthnicity.Add(item.Ethnicity);
+        }
+    }
 
-    List<string> dataXList = new List<string> { "Stackholder", "Male", "Female", "Full-Time", "Pass-Time", "Kinh", "Da Den", "Trang" };
+    List<string> dataXList = new List<string> { "Stackholder", "Male", "Female", "Full-Time", "Part-Time" };
     List<int> dataY1List = new List<int>();
     List<int> dataY2List = new List<int>();
-    // var totalMale = 0;
-    // var totalPayMaleLastYear = 0;
-    // var totalFemale = 0;
-    // var totalPayFemaleLastYear = 0;
-    dataY1List.AddRange(new List<int> { 300000, 151215, 4000000, 160000, 600000, 700000, 8000000, 8500000 });
-    dataY2List.AddRange(new List<int> { 3000000, 414841515, 41512125, 700000, 1000000, 4511000, 65871241, 32621451 });
+    var totalShareHolder = 0;
+    var totalShareHolderLastYear = 0;
+    var totalMale = 0;
+    var totalMaleLastYear = 0;
+    var totalFemale = 0;
+    var totalFemaleLastYear = 0;
+    var totalFullTime = 0;
+    var totalFullTimeLastYear = 0;
+    var totalPartTime = 0;
+    var totalPartTimeLastYear = 0;
+    DateTime currentDate = DateTime.Now;
+    DateTime lastYearDate = currentDate.AddYears(-1);
+    foreach (var item in Model)
+    {
+        if (item.ShareholderStatus == 1)
+        {
+            var totalVacation = 0;
+            totalVacation += Convert.ToInt32(item.VacationDays);
+            totalShareHolder += totalVacation;
+            if (item.YearWorking.HasValue && item.MonthWorking.HasValue)
+            {
+                int year = item.YearWorking.Value.Year;
+                int month = (int)item.MonthWorking;
+                DateTime recordDate = new DateTime(year, month, 1);
+                if (recordDate >= lastYearDate && recordDate <= currentDate)
+                {
+                    totalShareHolderLastYear += Convert.ToInt32(item.VacationDays);
+                }
+            }
+        }
+        if (item.Gender == "Male")
+        {
+            var totalVacation = 0;
+            totalVacation += Convert.ToInt32(item.VacationDays);
+            totalMale += totalVacation;
+            if (item.YearWorking.HasValue && item.MonthWorking.HasValue)
+            {
+                int year = item.YearWorking.Value.Year;
+                int month = (int)item.MonthWorking;
+                DateTime recordDate = new DateTime(year, month, 1);
+                if (recordDate >= lastYearDate && recordDate <= currentDate)
+                {
+                    totalMaleLastYear += Convert.ToInt32(item.VacationDays);
+                }
+            }
+        }
+        else if (item.Gender == "Female")
+        {
+            var totalVacation = 0;
+            totalVacation += Convert.ToInt32(item.VacationDays);
+            totalFemale += totalVacation;
+            if (item.YearWorking.HasValue && item.MonthWorking.HasValue)
+            {
+                int year = item.YearWorking.Value.Year;
+                int month = (int)item.MonthWorking;
+                DateTime recordDate = new DateTime(year, month, 1);
+                if (recordDate >= lastYearDate && recordDate <= currentDate)
+                {
+                    totalFemaleLastYear += Convert.ToInt32(item.VacationDays);
+                }
+            }
+        }
+        if (item.EmploymentStatus == "FullTime  ")
+        {
+            var totalVacation = 0;
+            totalVacation += Convert.ToInt32(item.VacationDays);
+            totalFullTime += totalVacation;
+            if (item.YearWorking.HasValue && item.MonthWorking.HasValue)
+            {
+                int year = item.YearWorking.Value.Year;
+                int month = (int)item.MonthWorking;
+                DateTime recordDate = new DateTime(year, month, 1);
+                if (recordDate >= lastYearDate && recordDate <= currentDate)
+                {
+                    totalFullTimeLastYear += Convert.ToInt32(item.VacationDays);
+                }
+            }
+        }
+        else if (item.EmploymentStatus == "PartTime  ")
+        {
+            var totalVacation = 0;
+            totalVacation += Convert.ToInt32(item.VacationDays);
+            totalPartTime += totalVacation;
+            if (item.YearWorking.HasValue && item.MonthWorking.HasValue)
+            {
+                int year = item.YearWorking.Value.Year;
+                int month = (int)item.MonthWorking;
+                DateTime recordDate = new DateTime(year, month, 1);
+                if (recordDate >= lastYearDate && recordDate <= currentDate)
+                {
+                    totalPartTimeLastYear += Convert.ToInt32(item.VacationDays);
+                }
+            }
+        }
+    }
+    dataY1List.AddRange(new List<int> { totalShareHolderLastYear, totalMaleLastYear, totalFemaleLastYear, totalFullTimeLastYear, totalPartTimeLastYear });
+    dataY2List.AddRange(new List<int> { totalShareHolder, totalMale, totalFemale, totalFullTime, totalPartTime });
     var listEthnicitys = listEthnicity.ToArray();
-    //var dataX = FisrtdataX.Concat(listEthnicitys);
+    for (int i = 0; i < listEthnicitys.Length; i++)
+    {
+        foreach (var item in Model)
+        {
+            if (item.Ethnicity == null) continue;
+            if (listEthnicitys[i].ToString() == item.Ethnicity.ToString())
+            {
+                var totalVacation = 0;
+                totalVacation += Convert.ToInt32(item.VacationDays);
+                var totalEthnicityLastYear = 0;
+                if (item.YearWorking.HasValue && item.MonthWorking.HasValue)
+                {
+                    int year = item.YearWorking.Value.Year;
+                    int month = (int)item.MonthWorking;
+                    DateTime recordDate = new DateTime(year, month, 1);
+                    if (recordDate >= lastYearDate && recordDate <= currentDate)
+                    {
+                        totalEthnicityLastYear += Convert.ToInt32(item.VacationDays);
+                    }
+                }
+                var totalEthnicity = 0;
+                totalEthnicity += totalVacation;
+                dataY1List.Add(totalEthnicityLastYear);
+                dataY2List.Add(totalEthnicity);
+            }
+        }
+    }
     var dataX = dataXList.ToArray();
     var dataY1 = dataY1List.ToArray();
     var dataY2 = dataY2List.ToArray();
 }
 <!-- Sale & Revenue Stard -->
 <div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-6">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fas fa-dollar-sign fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">15000</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
-                <div class="d-flex align-items-center">
-                    <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .7);"></div>
-                    <span class="ms-2">Total income as of the time period last year</span>
-                </div>
-            </div>
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
-                <div class="d-flex align-items-center">
-                    <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .5);"></div>
-                    <span class="ms-2">Total income so far this year</span>
+    <div class="col-sm-6">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+            <div class="row">
+                <div class="ms-4">
+                    <p class="mb-2">Today Vacation Days</p>
+                    <h6 class="mb-0">@totalVacations Days</h6>
                 </div>
             </div>
         </div>
     </div>
-    <div>
-        <!-- Sales Chart Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="bg-light rounded h-100 p-4">
-                        <h6 class="mb-4">Multiple Bar Chart</h6>
+    <div class="col-sm-6">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+            <div class="d-flex align-items-center">
+                <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .7);"></div>
+                <span class="ms-2">Total vacation days as of the time period last year</span>
+            </div>
+        </div>
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+            <div class="d-flex align-items-center">
+                <div style="width: 35px; height: 10px; background-color:rgba(0, 156, 255, .5);"></div>
+                <span class="ms-2">Total vacation days so far this year</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <!-- Sales Chart Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <h6 class="mb-4">Multiple Bar Chart</h6>
 
-                        <div class="d-flex">
-                            <div class="nav-item p-4">
-                                <button type="button" class="btn btn-secondary nav-link" style="color: black;background-color: #f3f6f9" data-index="0">Stackholder</button>
-                            </div>
-                            <div class="nav-item dropdown p-4">
-                                <a href="#" class="nav-link dropdown-toggle" style="color: black;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown">Gender</a>
-                                <div class="dropdown-menu border-0" style="background-color: #f3f6f9;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;">
-                                    <a class="dropdown-item" href="#" data-index="1">Male</a>
-                                    <a class="dropdown-item" href="#" data-index="2">Female</a>
-                                </div>
-                            </div>
-                            <div class="nav-item dropdown p-4">
-                                <a href="#" class="nav-link dropdown-toggle" style="color: black; border-color: #6c757d;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown">Type Job</a>
-                                <div class="dropdown-menu border-0" style="background-color: #f3f6f9;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;">
-                                    <a class="dropdown-item" href="#" data-index="3">Full Time</a>
-                                    <a class="dropdown-item" href="#" data-index="4">Part Time</a>
-                                </div>
-                            </div>
-                            <div class="nav-item dropdown p-4">
-                                <a href="#" class="nav-link dropdown-toggle" style="color: black; border-color: #6c757d;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;" data-bs-toggle="dropdown">Ethnicity</a>
-                                @{
-                                    var a = 5;
-                                    <div class="dropdown-menu border-0" style="background-color: #f3f6f9;border-color: #6c757d; border-width: 1px; border-style: solid; border-radius: 4px;">
-                                        @for (var i = 0; i < listEthnicitys.Length; i++)
-                                        {
-                                            <a class="dropdown-item" href="#" data-index=@a.ToString()>@listEthnicitys[i].ToString()</a>
-                                            a++;
-                                        }
-                                    </div>
-                                }
+                    <div class="d-flex">
+                        <div class="nav-item p-4 ">
+                            <button type="button" class="btn" href="#" data-index="0">Shareholder</button>
+                        </div>
+                        <div class=" nav-item dropdown p-4">
+                            <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Gender</a>
+                            <div class="dropdown-menu border-0 btn-style-listmenu">
+                                <a class="dropdown-item" href="#" data-index="1">Male</a>
+                                <a class="dropdown-item" href="#" data-index="2">Female</a>
                             </div>
                         </div>
-                        <canvas id="worldwide-sales"
-                                data-x='@string.Join(",", dataX)'
-                                data-y1-values='@string.Join(",", dataY1)'
-                                data-y2-values='@string.Join(",", dataY2)'
-                                data-ethnicity='@string.Join(",", listEthnicitys)'>
-                        </canvas>
+                        <div class="nav-item dropdown p-4">
+                            <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Type Job</a>
+                            <div class="dropdown-menu border-0 btn-style-listmenu">
+                                <a class="dropdown-item" href="#" data-index="3">Full Time</a>
+                                <a class="dropdown-item" href="#" data-index="4">Part Time</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown p-4">
+                            <a href="#" class="dropdown-toggle btn" data-bs-toggle="dropdown">Ethnicity</a>
+                            @{
+                                var a = 5;
+                                <div class="dropdown-menu border-0 btn-style-listmenu">
+                                    @for (var i = 0; i < listEthnicitys.Length; i++)
+                                    {
+                                        <a class="dropdown-item" href="#" data-index=@a.ToString()>@listEthnicitys[i].ToString()</a>
+                                        a++;
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>
+                    <canvas id="worldwide-sales"
+                            data-x='@string.Join(",", dataX)'
+                            data-y1-values='@string.Join(",", dataY1)'
+                            data-y2-values='@string.Join(",", dataY2)'
+                            data-ethnicity='@string.Join(",", listEthnicitys)'>
+                        ?
+                    </canvas>
                 </div>
             </div>
         </div>
-        <!-- Sales Chart End -->
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/vacation.js"></script>
-    <!-- Sale & Revenue End -->
+</div>
+<!-- Sales Chart End -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/vacation.js"></script>
+<!-- Sale & Revenue End -->
+</div> 
