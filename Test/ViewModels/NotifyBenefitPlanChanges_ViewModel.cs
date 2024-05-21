@@ -2,6 +2,12 @@
 {
     public class NotifyBenefitPlanChanges_ViewModel
     {
-        //tạo các đối tượng tại đây
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public string? MiiderName { get; set; }
+
+        public DateOnly? dateChangeBenefit {  get; set; }
+        public string? nameBenefit { get; set; }
     }
 }

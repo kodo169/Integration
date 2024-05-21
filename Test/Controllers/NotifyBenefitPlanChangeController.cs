@@ -2,6 +2,7 @@
 using Integration.Models;
 using Integration.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Integration.Controllers
 {
@@ -16,29 +17,29 @@ namespace Integration.Controllers
         }
         public IActionResult Index()
         {
-            var dataHR = _dataSQLServer.Personals.ToList();
-            var dataPayroll = _dataMySQLServer.Employees.ToList();
-            var dataPr_Pay_Rates = _dataMySQLServer.PayRates.ToList();
-            var data = new List<NotifyBenefitPlanChanges_ViewModel>();
-
-            if (dataHR.Count == dataPayroll.Count)
+            var data = _dataSQLServer.Employments
+                .Include(p =>p.Personal)
+                .ToList();
+            var result = new List<NotifyBenefitPlanChanges_ViewModel>();
+            DateOnly nowDate = DateOnly.FromDateTime(DateTime.Now);
+            foreach (var item in data)
             {
-                foreach (var hr in dataHR)
+                if (item.LastReviewDate == null) continue;
+                if(item.LastReviewDate.Value.Month == nowDate.Month && (nowDate.Day - item.LastReviewDate.Value.Day) <= 7)
                 {
-                    var prE = dataPayroll.FirstOrDefault(p => p.IdEmployee == hr.PersonalId &&
-                                                                          p.FirstName == hr.CurrentFirstName &&
-                                                                          p.LastName == hr.CurrentLastName);
-                    var prPE = dataPr_Pay_Rates.FirstOrDefault(e => e.IdPayRates == prE.PayRatesIdPayRates);
-                    if (prE != null && prE != null)
+                    var namePersonal = _dataSQLServer.BenefitPlans.Where(p => p.BenefitPlansId == item.Personal.BenefitPlanId).FirstOrDefault();
+                    var addDate = new NotifyBenefitPlanChanges_ViewModel
                     {
-                        data.Add(new NotifyBenefitPlanChanges_ViewModel
-                        {
-                            //gán các đối tượng tại đây
-                        });
-                    }
+                        FirstName = item.Personal.CurrentFirstName,
+                        LastName = item.Personal.CurrentLastName,
+                        MiiderName = item.Personal.CurrentMiddleName,
+                        dateChangeBenefit = item.LastReviewDate,
+                        nameBenefit = namePersonal.PlanName,
+                    };
+                    result.Add(addDate);
                 }
             }
-            return View(data);
+            return View(result);
         }
     }
 }
