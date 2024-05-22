@@ -27,9 +27,12 @@ namespace Integration.Controllers
             {
                 var dataE = _dataSQLServer.Employments.FirstOrDefault(p => p.PersonalId == item.PersonalId);
                 var dataVC = _dataSQLServer.EmploymentWorkingTimes.FirstOrDefault(P => P.EmploymentId == item.EmploymentId);
+                if (dataVC == null) continue;
                 if (dataE == null) continue;
+                if (item.Personal == null) continue;
                 var vacationsViewModel = new Vacations_ViewModel
                 {
+                    
                     ShareholderStatus = item.Personal.ShareholderStatus,
                     Gender = item.Personal.CurrentGender,
                     Ethnicity = item.Personal.Ethnicity,
